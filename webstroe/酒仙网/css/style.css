@@ -1,0 +1,251 @@
+@charset "utf-8";
+
+/*顶部导航*/
+
+.top_nav_bg{
+    background:#f6f6f6;
+    height:27px;
+}
+.top_nav_wrapper{
+    width:1200px;
+    margin:0 auto;
+}
+.nav_top_l{
+    float: left;
+}
+.nav_top_l li{
+    float: left;
+}
+.nav_top_l li a{
+    color: #666666;
+    line-height:27px;
+    margin-right: 9px;
+}
+.nav_top_r{
+    width:704px;
+    float: right;
+    margin-right: -4px;
+}
+.nav_top_r li{
+    float: left;
+    line-height:27px;
+}
+.nav_top_r .menu_icon span,.nav_top_r .menu_icon .menu_up{
+    float: left;
+}
+.nav_top_r .menu_icon{
+    padding: 0;
+}
+.nav_top_r .menu_icon span{
+    color: #666666;
+    padding:0 10px;
+}
+.nav_top_r li a{
+    color: #666666;
+    border-right:1px solid #dddddd;
+    padding:0 10px;
+}
+.nav_top_r li:hover{
+    background: #fff;
+    border-right:1px solid #dddddd;
+    border-left:1px solid #dddddd;
+    margin-left:-1px;
+}
+.nav_top_r .hd_clear:hover{
+    border:0;
+    background:none;
+    margin-left: 0px;
+}
+.nav_top_r .hd_clear:hover a{
+    text-decoration: none;
+}
+.nav_top_r li:hover a{
+   line-height: 27px;
+    border: 0;
+    text-decoration: underline;
+}
+.nav_top_r li:hover span{
+    text-decoration: underline;
+    color:#cc0000
+}
+.nav_top_r li a:hover{
+    color:#cc0000;
+
+
+}
+.nav_top_r li span{
+    line-height:27px;
+    color: #dddddd;
+}
+.nav_top_r li .hd_shop{
+    background: url("../img/icon_header.png") no-repeat 0 0;
+    width:13px;
+    height:12px;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.nav_top_r li .hd_red{
+    color:#f22e00;
+    margin-left: 1px;
+    font-weight:bold;
+}
+.nav_top_r li .hd_cor_red{
+    color:#cc0000;
+}
+.nav_top_r li .menu_up{
+    background: url("../img/header_down.png") no-repeat;
+    width:7px;
+    height:4px;
+    display: inline-block;
+    margin-top: 13px;
+    margin-left: -3px;
+    padding-right: 6px;
+
+}
+.nav_top_r li .hd_phone{
+    color: #ca1926;
+    font-weight:bold;
+    font-size:14px;
+    font-family: arial;
+    font-style: italic;
+}
+.nav_top_r li .no_hover:hover{
+    color:#666666;
+}
+/*logo*/
+
+.logo_wrapper{
+    width:1200px;
+    margin:  0 auto;
+}
+.logo_wrapper h1,.logo_wrapper .search,.logo_wrapper .logo_r,.logo_wrapper .memu_logo{
+    float:left;
+}
+.logo_wrapper h1 a{
+    background: url("../img/logo.png") no-repeat;
+    width:109px;
+    height:52px;
+    text-indent: -999em;
+    display: block;
+    margin-top: 13px;
+}
+.logo_wrapper .memu_logo a{
+    background: url("../img/menu_logo.png") no-repeat;
+    width:110px;
+    height:59px;
+    margin-top: 13px;
+    margin-left: 31px;
+    display: block;
+}
+.search .sr_l{
+    position: relative;
+    float: left;
+}
+.search .sr_l input{
+    width:415px;
+    height:43px;
+    background: url("../img/search_m.png") repeat-x;
+    border:0;
+    outline: none;
+    color:#c3c3c3;
+    padding-left:10px;
+}
+.search .sr_l .l{
+    background: url("../img/search_l.png") no-repeat;
+    height:43px;
+    width: 5px;
+    position: absolute;
+    left:0;
+    top:0;
+}
+.search .sr_r{
+    float: left;
+    position: relative;
+}
+.search .sr_r a{
+    background: #d20001;
+    width:75px;
+    height:41px;
+    text-align: center;
+    line-height:41px;
+    font-size:14px;
+    font-weight: bold;
+    color:#fff;
+    display: block;
+    margin-top: 1px;
+}
+.search .top{
+    height:43px;
+}
+.search .sr_r .r{
+    background: url("../img/search_r.png");
+    width:5px;
+    height:41px;
+    position: absolute;
+    right:0;
+    top:1px;
+}
+.search .bottom{
+    padding-left: 5px;
+    display: block;
+}
+.search .bottom li{
+    float: left;
+    margin-top: 5px;
+}
+.bottom li a,.bottom li span{
+    float: left;
+}
+.bottom li a {
+    color: #999999;
+    padding: 0 5px;
+}
+.bottom li span {
+    color: #b299b2;
+}
+.search{
+    margin-left: 57px;
+    margin-top: 14px;
+}
+
+/*logo右边*/
+
+.logo_r{
+    padding: 21px 0 0 51px;
+    margin-right: -20px;
+}
+.logo_r span{
+    width:42px;
+    height:42px;
+    float: left;
+}
+.logo_r .bus {
+    background: url("../img/icon_header.png") 0 -109px;
+}
+.logo_r .camera {
+     background: url("../img/icon_header.png") 0 -64px;
+ }
+.logo_r .zheng {
+    background: url("../img/icon_header.png") 0 -18px;
+}
+.logo_r li{
+
+    margin-right: 20px;
+    float: left;
+}
+.logo_r p{
+    float: left;
+    padding-top: 8px;
+    padding-left: 5px;
+}
+.logo_r p i{
+     color: #959595;
+}
+.logo_r p .logo_col{
+    color:#d10000;
+    font-family: microsoft yahei, arial;
+    margin-top: 2px;
+    font-size:14px;
+    font-weight:bold;
+}

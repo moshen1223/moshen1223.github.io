@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>video</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    #box {
+        width: 530px;
+        height: 300px;
+        margin: 50px auto;
+        background: url(img/bg.png);
+        position: relative;
+        left: 0;
+        top: 0;
+    }
+    video {
+        margin: 5px;
+        background: url(img/black.png);
+        cursor: pointer;
+    }
+    .playBtn {
+        width: 37px;
+        height: 37px;
+        position: absolute;
+        left: 8px;
+        bottom: 8px;
+        background: url(img/btn.png) 0 0 no-repeat;
+        border: none;
+        outline: none;
+        cursor: pointer;
+    }
+    .pauseBtn {
+        width: 37px;
+        height: 37px;
+        position: absolute;
+        left: 8px;
+        bottom: 8px;
+        background: url(img/btn.png) 0 0 no-repeat;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        display: none;
+    }
+    .playBtn:hover {
+        background: url(img/btn.png) 0 -41px no-repeat;
+    }
+    .playBtn:active {
+        background: url(img/btn.png) 0 -82px no-repeat;
+    }
+    .pauseBtn {
+        background: url(img/btn.png) -41px 0 no-repeat;
+    }
+    .pauseBtn:hover {
+        background: url(img/btn.png) -41px -41px no-repeat;
+    }
+    .pauseBtn:active {
+        background: url(img/btn.png) -41px -82px no-repeat;
+    }
+    #controls {
+        opacity: 0;
+        -webkit-transition: 0.3s all ease;
+        -o-transition: 0.3s all ease;
+        transition: 0.3s all ease;
+    }
+    #barBox {
+        width: 476px;
+        height: 38px;
+        position: absolute;
+        left: 45px;
+        bottom: 8px;
+        background: url(img/barbg.png) no-repeat;
+    }
+    #bar {
+        width: 390px;
+        height: 10px;
+        position: absolute;
+        left: 10px;
+        top: 15px;
+        background: url(img/timeline.png);
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .slide {
+        width: 15px;
+        height: 15px;
+        position: absolute;
+        left: -3px;
+        top: -3px;
+        background: url(img/slide.png);
+        cursor: pointer;
+    }
+    .timeline {
+        height: 8px;
+        position: absolute;
+        left: 0;
+        top: 1px;
+        background: url(img/time.png);
+        border-radius: 5px;
+        opacity: 0.8;
+    }
+    em {
+        position: absolute;
+        top: 13px;
+        right: 5px;
+        color: #fff;
+        font-style: normal;
+        font-size: 12px;
+    }
+    </style>
+    <script>
+    'use strict';
+    window.onload = function(){
+        var oBox = document.querySelector('#box');
+        var oControl = document.querySelector('#controls');
+        var oVideo = document.querySelector('#video');
+        var oPlay = document.querySelector('.playBtn');
+        var oPause = document.querySelector('.pauseBtn');
+        var oBarBox = document.querySelector('#barBox');
+        var oBar = document.querySelector('#bar');
+        var oSlide = document.querySelector('.slide');
+        var oTimeline = document.querySelector('.timeline');
+        var oNum = document.querySelector('em');
+        var bOk = true;
+        oBox.onmouseover = function(){
+            oControl.style.opacity = 1;
+        };
+        oBox.onmouseout = function(){
+            oControl.style.opacity = 0;
+        };
+        oVideo.onclick = function(){
+            if(bOk){
+                oVideo.play();
+                oPlay.style.display = 'none';
+                oPause.style.display = 'block';
+            }else{
+                oVideo.pause();
+                oPause.style.display = 'none';
+                oPlay.style.display = 'block';
+            }
+            bOk = !bOk;
+        };
+        oPlay.onclick = function(){
+            oVideo.play();
+            this.style.display = 'none';
+            oPause.style.display = 'block';
+            bOk = false;
+        };
+        oPause.onclick = function(){
+            oVideo.pause();
+            this.style.display = 'none';
+            oPlay.style.display = 'block';
+            bOk = true;
+        };
+        oSlide.onmousedown = function(ev){
+            var disX = ev.clientX-oSlide.offsetLeft;
+            oVideo.pause();
+            bOk = false;
+            document.onmousemove = function(ev){
+                var l = ev.clientX-disX;
+                if(l<-3){
+                    l=-3;
+                }else if(l>oBar.offsetWidth-oSlide.offsetWidth+3){
+                    l=oBar.offsetWidth-oSlide.offsetWidth+3;
+                }
+                oSlide.style.left = l+'px';
+                var scale = (l+3)/(oBar.offsetWidth-oSlide.offsetWidth+6);
+                oTimeline.style.width = oBar.offsetWidth*scale+'px';
+                oVideo.currentTime = oVideo.duration*scale;
+            };
+            document.onmouseup = function(){
+                oPlay.style.display = 'none';
+                oPause.style.display = 'block';
+                oVideo.play();
+                this.onmousemove = null;
+                this.onmouseup = null;
+            };
+            return false;
+        };
+        oVideo.ontimeupdate=function(){
+    		var scale = oVideo.currentTime/oVideo.duration;
+    		oTimeline.style.width = scale*(oBar.offsetWidth)+'px';
+    		oSlide.style.left = scale*(oBar.offsetWidth+6-oSlide.offsetWidth)-3+'px';
+            oNum.innerHTML = time2min(this.currentTime)+'/'+time2min(this.duration);
+            console.log(scale);
+            if(scale==1){
+                oVideo.currentTime = 0
+                oVideo.pause();
+                oPause.style.display = 'none';
+                oPlay.style.display = 'block';
+                bOk = true;
+            };
+    	};
+        oBar.onclick = function(ev){
+            var disX = ev.clientX-getPos(oBar).left;
+            var scale = disX/(oBar.offsetWidth+6);
+            oSlide.style.left = scale*(oBar.offsetWidth+6-oSlide.offsetWidth)-3+'px';
+            oTimeline.style.width = scale*(oBar.offsetWidth)+'px';
+            oVideo.currentTime = oVideo.duration*scale;
+            oVideo.play();
+            oPlay.style.display = 'none';
+            oPause.style.display = 'block';
+        };
+        function toDou(iNum){
+            return iNum<10?'0'+iNum:''+iNum;
+        }
+        function time2min(time){
+        	var sMin = parseInt(time/60);
+        	var sSec = parseInt(time%60);
+        	return toDou(sMin)+':'+toDou(sSec);
+        }
+        function getPos(obj){
+            var pos = {};
+            pos.left = 0;
+            pos.top = 0;
+            while(obj.offsetParent){
+                pos.left += obj.offsetLeft;
+                pos.top += obj.offsetTop;
+                obj = obj.offsetParent;
+            }
+            return pos;
+        }
+    };
+    </script>
+</head>
+<body>
+    <div id="box">
+        <video id="video" width="520" height="290" src="bbb.ifox">
+            您的浏览器不支持video
+        </video>
+        <div id="controls">
+            <input type="button" class="playBtn" />
+            <input type="button" class="pauseBtn" />
+            <div id="barBox">
+                <div id="bar"><span class="timeline"></span><span class="slide"></span></div>
+                <em>00:00/00:00</em>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

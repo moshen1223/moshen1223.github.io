@@ -1,0 +1,102 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>超酷数码钟表</title>
+<link href="style/zns_style.css" rel="stylesheet" type="text/css" />
+<script>
+function findInArr(arr,sClass){
+	for (var i=0;i<arr.length;i++){
+		if(arr[i]==sClass){
+			return true;	
+		}	
+	}	
+	return false;
+}
+function getClassName(obj,cName){
+	if(obj.getByClassName){
+		return obj.getElementsByClassName[cName];	
+	}else{
+		var result=[];
+		var Ele=obj.getElementsByTagName('*');
+		for(var i=0;i<Ele.length;i++){
+			var arr=Ele[i].className.split(' ');
+			if(findInArr(arr,cName)){
+				result.push(Ele[i]);	
+			}	
+		}
+	 return result;
+	}
+	
+}
+function toDou(num){
+	return num<10?'0'+num:''+num;	
+}
+window.onload=function(){
+	var oYear=document.getElementById('year');	
+	var aYear=getClassName(oYear,'num');
+	var oTime=document.getElementById('time');
+	var aTime=getClassName(oTime,'num');
+	var oDay=getClassName(oTime,'num2');
+	var arrw=['seven','one','two','three','four','five','six']
+	function tick(){
+		var oDate=new Date();
+		var Y=oDate.getFullYear();
+		var M=oDate.getMonth()+1;
+		var D=oDate.getDate();
+		var h=oDate.getHours();
+		var m=oDate.getMinutes();
+		var s=oDate.getSeconds();
+		var str=Y+toDou(M)+toDou(D);
+		var str2=toDou(h)+toDou(m)+toDou(s);
+		var w=oDate.getDay();
+		for(var i=0;i<aYear.length;i++){
+			aYear[i].src='images/'+str.charAt(i)+'.png';	
+		}
+		for(var i=0;i<aTime.length;i++){
+			aTime[i].src='images/'+str2.charAt(i)+'.png';	
+		}
+		for(var i=0;i<oDay.length;i++){
+			oDay[i].src='images/'+arrw[w]+'.png';
+			}
+	}
+	tick();
+	setInterval(tick,1000);
+}
+
+</script>
+</head>
+
+<body>
+
+<div id="clock" class="date">
+    <h2><img src="images/title.png" /></h2>
+    <div class="year" id="year">
+        <img class="num" src="images/0.png" alt="0" />
+        <img class="num" src="images/0.png" alt="0" />
+        <img class="num" src="images/0.png" alt="0" />
+        <img class="num" src="images/0.png" alt="0" />
+        <img src="images/year.png" alt="year" />
+        <img class="num" src="images/0.png" alt="0" />
+        <img class="num" src="images/0.png" alt="0" />
+        <img src="images/month.png" alt="month" />
+        <img class="num" src="images/0.png" alt="0" />
+        <img class="num" src="images/0.png" alt="0" />
+        <img src="images/seven.png" alt="seven" />
+    </div>
+    <div class="time" id="time">
+        <img class="num" src="images/0.png" alt="0" />
+        <img class="num" src="images/0.png" alt="0" />
+        <img src="images/sign.png" alt="sign" />
+        <img class="num" src="images/0.png" alt="0" />
+        <img class="num" src="images/0.png" alt="0" />
+        <img src="images/sign.png" alt="sign" />
+        <img class="num" src="images/0.png" alt="0" />
+        <img class="num" src="images/0.png" alt="0" />
+        <img class="pos2" src="images/week.png" alt="week" />
+        <img class="num2" src="images/one.png" alt="one" />
+    </div>
+</div>
+
+</body>
+</html>

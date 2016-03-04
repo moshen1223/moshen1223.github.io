@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>九宫格拖拽</title>
+<style>
+*{margin:0; padding:0;}
+body{
+	background:#273041;
+}
+#box{width:300px; height:300px; background:#ccc; position:absolute; top:100px; left:300px;}
+#box .t{width:100%; height:20px; background:yellow; position:absolute; top:0; left:0;}
+#box .b{width:100%; height:20px; background:yellow; position:absolute; bottom:0; left:0;}
+#box .l{width:20px; height:100%; background:yellow; position:absolute; top:0; left:0;}
+#box .r{width:20px; height:100%; background:yellow; position:absolute; top:0; right:0;}
+#box .rb{width:20px; height:20px; background:red; position:absolute; right:0; bottom:0;}
+#box .lt{width:20px; height:20px; background:red; position:absolute; left:0; top:0;}
+#box .lb{width:20px; height:20px; background:red; position:absolute; left:0; bottom:0;}
+#box .rt{width:20px; height:20px; background:red; position:absolute; right:0; top:0;}
+</style>
+<script>
+window.onload=function(){
+	var oBox = document.getElementById('box');
+	var aDiv = oBox.children;
+	for(var i=0;i<aDiv.length;i++){
+		changeSize(aDiv[i]);
+	}
+	function changeSize(obj){
+		obj.onmousedown=function(ev){
+			var oEvent = ev||event;
+			oEvent.cancelBubble=true;
+			var oldX = oEvent.clientX;
+			var oldY = oEvent.clientY;
+			var oldW = oBox.offsetWidth;
+			var oldH= oBox.offsetHeight;
+			var oldL = oBox.offsetLeft;
+			var oldT = oBox.offsetTop;
+			document.onmousemove=function(ev){
+				var oEvent = ev||event;
+				if(obj.className.indexOf('r')!=-1){
+					oBox.style.width=oldW+(oEvent.clientX-oldX)+'px';
+				}
+				if(obj.className.indexOf('b')!=-1){
+					oBox.style.height = oldH+(oEvent.clientY-oldY)+'px';
+				}
+				if(obj.className.indexOf('l')!=-1){
+					oBox.style.width = oldW-(oEvent.clientX-oldX)+'px';
+					oBox.style.left = oldL+(oEvent.clientX-oldX)+'px';
+				}
+				if(obj.className.indexOf('t')!=-1){
+					oBox.style.height = oldH-(oEvent.clientY-oldY)+'px';
+					oBox.style.top = oldT+(oEvent.clientY-oldY)+'px';
+				}
+			};
+			document.onmouseup=function(){
+				document.onmousemove=null;
+				document.onmouseup=null;
+				obj.releaseCapture&&obj.releaseCapture();
+			};
+			obj.setCapture&&obj.setCapture();
+			return false;
+		};
+	}
+	oBox.onmousedown=function(ev){
+		var oEvent = ev||event;
+		var disX = oEvent.clientX-oBox.offsetLeft;
+		var disY = oEvent.clientY-oBox.offsetTop;
+		document.onmousemove=function(ev){
+			var oEvent = ev||event;
+			oBox.style.left = oEvent.clientX-disX+'px';
+			oBox.style.top = oEvent.clientY-disY+'px';
+		};
+		document.onmouseup=function(){
+			document.onmousemove=null;
+			document.onmouseup=null;
+			oBox.releaseCapture&&oBox.releaseCapture();
+		};
+		oBox.setCapture&&oBox.setCapture();
+		return false;
+	};
+};
+
+</script>
+</head>
+
+<body>
+<div id="box">
+	<div class="r"></div>
+	<div class="b"></div>
+	<div class="l"></div>
+	<div class="t"></div>
+    <div class="rb"></div>
+    <div class="rt"></div>
+    <div class="lt"></div>
+    <div class="lb"></div>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

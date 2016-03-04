@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>手风琴</title>
+<style>
+body{
+	background: #273041;
+}
+*{ margin:0; padding:0; list-style:none;}
+#box{ width:600px; height:337px; margin:20px auto; overflow:hidden;}
+#box ul{ position:relative;}
+#box li{ position:absolute; left:0; top:0; width:600px; height:337px;}
+</style>
+<script src="move7.js"></script>
+<script>
+window.onload=function(){
+	var aLi = document.getElementsByTagName('li');
+	var oneW = aLi[0].offsetWidth;
+	var defaultW = 40;
+	
+	//布局
+	for(var i=1;i<aLi.length;i++){
+		aLi[i].style.left = oneW-(aLi.length-i)*defaultW+'px'
+	}
+	for(var i=0;i<aLi.length;i++){
+		(function(index){
+			aLi[i].onmouseover=function(){
+				for(var i=0;i<aLi.length;i++){
+					if(i<=index){
+						//aLi[i].style.left = i*defaultW+'px';
+						startMove(aLi[i],{left:i*defaultW});
+					}else{
+						//aLi[i].style.left = oneW-(aLi.length-i)*defaultW+'px';
+						startMove(aLi[i],{left:oneW-(aLi.length-i)*defaultW});
+					}
+				}
+			};
+		})(i);
+	}
+};
+</script>
+</head>
+
+<body>
+<div id="box">
+	<ul>
+    	<li><img src="img/1.jpg" width="600"></li>
+        <li><img src="img/2.jpg" width="600"></li>
+        <li><img src="img/3.jpg" width="600"></li>
+        <li><img src="img/4.jpg" width="600"></li>
+        <li><img src="img/5.jpg" width="600"></li>
+    </ul>
+</div>
+</body>
+</html>

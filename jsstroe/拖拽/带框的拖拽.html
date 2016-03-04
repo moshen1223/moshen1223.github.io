@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>桌面图标移动效果</title>
+<style>
+*{margin:0; padding:0;}
+#box{width:200px; height:200px; background:red; position:absolute; top:0; left:0;}
+body{
+	background:#273041;
+}
+</style>
+<script>
+window.onload=function(){
+	var oBox = document.getElementById('box');
+	oBox.onmousedown=function(ev){
+		var oEvent =ev||event;
+		var disX = oEvent.clientX-oBox.offsetLeft;
+		var disY = oEvent.clientY-oBox.offsetTop;
+		var oNewDiv = document.createElement('div');
+		oNewDiv.style.width=oBox.offsetWidth-10+'px';
+		oNewDiv.style.height = oBox.offsetHeight-10+'px';
+		
+		oNewDiv.style.position='absolute';
+		oNewDiv.style.left = oBox.offsetLeft+'px';
+		oNewDiv.style.top = oBox.offsetTop+'px';
+		oNewDiv.style.border='5px dashed #000';
+		document.body.appendChild(oNewDiv);
+		document.onmousemove=function(ev){
+			var oEvent = ev||event;
+			oNewDiv.style.left = oEvent.clientX-disX+'px';
+			oNewDiv.style.top = oEvent.clientY-disY+'px';
+		};
+		document.onmouseup=function(){
+			document.onmousemove=null;
+			document.onmouseup=null;
+			
+			oBox.style.left = oNewDiv.offsetLeft+'px';
+			oBox.style.top = oNewDiv.offsetTop+'px';
+			document.body.removeChild(oNewDiv);
+			oBox.releaseCapture&&oBox.releaseCapture();
+		};
+		oBox.setCapture&&oBox.setCapture();
+		return false;
+	};
+};
+</script>
+</head>
+
+<body>
+<div id="box"></div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/jquery-1.7.2.js"></script>
+    <script>
+        window.onload=function(){
+            var suUl= document.getElementById('su_ul');
+            var suLi=suUl.getElementsByTagName('li');
+            for(var i=0; i<suLi.length;i++){
+                suLi[i].onmouseover=function(){
+                    for(var i=0; i<suLi.length;i++){
+                        suLi[i].className='';
+                    }
+                    this.className='su_tit_li';
+                }
+            }
+//            我的京东按钮
+            var wBrt=document.getElementById('btn_rt');
+            var wBli=wBrt.getElementsByTagName('li');
+            for(var i=0; i<wBli.length;i++){
+                wBli[i].onmouseover=function(){
+                    this.className='active';
+                }
+                wBli[i].onmouseout=function(){
+                    this.className='';
+                }
+            }
+
+//            主导航
+
+
+            var oMn=document.getElementById('m_nav');
+            var wLi=oMn.getElementsByTagName('li');
+            for(var i=0; i<wLi.length;i++){
+                wLi[i].onmouseover=function(){
+                    for(var i=0; i<wLi.length;i++){
+                        wLi[i].className='';
+                    }
+                    this.className='active';
+                }
+            }
+
+
+//            banner
+
+          /*  var wBtn=document.getElementById('w_btn');
+            var wA=wBtn.getElementsByTagName('a');
+            var wban=document.getElementById('banner');
+            var wBa=wban.getElementsByTagName('img')
+            for(var i=0; i<wA.length;i++){
+                wA[i].index=i;
+                wA[i].onmouseover=function(){
+                    for(var i=0; i<wA.length;i++){
+                        wA[i].className='';
+                        wBa[i].className='';
+                    }
+                    wBa[this.index].className='active'
+                    this.className='active';
+                }
+            }*/
+        }
+		//jq
+		$(function(){
+			$('.w_btn a').mouseover(function(){
+				$('.w_btn a').removeClass('active');
+				$(this).addClass('active');
+				$('.benner_sm img').hide();
+				$('.benner_sm img').eq($(this).index()).show();
+			});
+			
+			var n=0;
+			var timer;
+			function changeN(){
+				if(n<$('.benner_sm img').length-1){
+					n=n+1;
+				}else{
+					n=0;
+				}
+				$('.benner_sm img').hide();
+				$('.benner_sm img').eq(n).show();
+				$('.w_btn a').removeClass('active');
+				$('.w_btn a').eq(n).addClass('active');	
+			};
+			timer = setInterval(changeN,1000);
+			$(".benner_img").hover(function(){
+				clearInterval(timer);
+			},function(){
+				timer = setInterval(changeN,1000);
+			});
+		});
+			
+    </script>
+</head>
+<body>
+
+<!--王银伟-->
+<!--顶部导航-->
+<div class="w_top_nav_bg">
+    <div class="w_top_nav_wrapper clearfix">
+        <ul class="w_top_nav_l fl">
+            <li class="clearfix">
+                <a href="#" class="w_sc_icon fl"></a>
+                <a href="#"  class="w_sc fl">收藏京东</a>
+            </li>
+            <li class="clearfix">
+                <a href="#" class="w_gz_icon fl"></a>
+                <a href="#"  class="w_gz fl">关注京东</a>
+            </li>
+            <li class="clearfix">
+                <a href="#" class="w_dw_icon fl"></a>
+                <a href="#" class="w_dw fl">北京</a>
+                <a href="#" class="w_h fl">[更换]</a>
+            </li>
+        </ul>
+        <ul class="w_top_nav_r fr">
+            <li>
+                <span class="fl">您好！欢迎来到京东！</span>
+                <a href="#" class="fl">[登录]</a>
+                <a href="#" class="fl">[免费注册</a>
+            </li>
+            <li>
+                <a href="#">我的订单</a>
+            </li>
+            <li>
+                <a href="#" class="clearfix"><i class="vip fl"></i><b class="fl">会员俱乐部</b></a>
+            </li>
+            <li>
+                <a href="#" class="clearfix"><i class="phone fl"></i><b class="fl">手机京东</b><em class="menu_icon fl"></em></a>
+            </li>
+            <li>
+                <a href="#"><b class="fl">客户服务</b><em class="menu_icon fl"></em></a>
+            </li>
+            <li class="c_br">
+                <a href="#"><b class="fl">网站导航</b><em class="menu_icon fl"></em></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!--广告横幅-->
+
+<div class="sml_ban_bg">
+    <div class="sml_ban_wrapper">
+        <a href="#"><img src="img/s_banner.jpg" alt="" /></a>
+    </div>
+</div>
+
+<!--logo-->
+
+<div class="logo_bg">
+    <div class="logo_wrapper clearfix">
+        <h1 class="fl">
+            <a href="#" class="logo fl">京东</a>
+            <a href="#" class="gif fl"></a>
+        </h1>
+        <div class="search_box fl">
+            <span class="xiushi"></span>
+            <div class="search clearfix">
+                <input type="text" placeholder="取暖电器" class="fl"/>
+                <a href="#" class="fl">搜索</a>
+            </div>
+            <ul class="clearfix s_sear">
+                <li>
+                    <span>热门搜索：</span>
+                </li>
+                <li>
+                    <a href="#">美食年货</a>
+                </li>
+                <li>
+                    <a href="#">小黑献礼</a>
+                </li>
+                <li>
+                    <a href="#">超值秒杀</a>
+                </li>
+                <li>
+                    <a href="#">饭桌必备</a>
+                </li>
+            </ul>
+
+        </div>
+        <ul class="btn_rt fr" id="btn_rt">
+            <li>
+                <a href="#"><i class="icon_jd fl"></i><b class="fl">我的京东</b><em class="arrow_d fl"></em></a>
+                <div class="w_jd_box_s">
+                    加载中，请稍等...
+                </div>
+            </li>
+            <li>
+                <a href="#"><i class="shop fl"></i><b class="fl">去购物车结算</b><em class="arrow_r fl"></em></a>
+                <div class="w_jd_box_s">
+                    加载中，请稍等...
+                </div>
+                <div class="w_hdm">
+                    0
+                    <i class="l"></i>
+                    <i class="r"></i>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="main_nav_bg">
+    <div class="main_nav_wrapper">
+        <div class="huabian"></div>
+            <div class="main_nav_box clearfix ">
+                <h2 class="fl">
+                    <a href="#">全部商品分类</a>
+                </h2>
+                <ul class="main_nav fl" id="m_nav">
+                    <li  class="active">
+                        <a href="#">首页</a>
+                    </li>
+                    <li>
+                        <a href="#">服装城</a>
+                    </li>
+                    <li>
+                        <a href="#">美食团购</a>
+                    </li>
+                    <li>
+                        <a href="#">夺宝岛</a>
+                    </li>
+                    <li>
+                        <a href="#">闪购</a>
+                    </li>
+                    <li>
+                        <a href="#">金融</a>
+                    </li>
+                </ul>
+                <div class="pic fr">
+                    <a href="#"></a>
+                </div>
+            </div>
+            <div class="main_ct clearfix">
+                <ul class="sidebar fl">
+                    <li class="clearfix">
+                        <a href="#">图书</a>
+                        <span>、</span>
+                        <a href="#">音像</a>
+                        <span>、</span>
+                        <a href="#">数字商品</a>
+                        <i class="arrow_nav"></i>
+                    </li>
+                    <li class="clearfix">
+                        <a href="#">图书</a>
+                        <span>、</span>
+                        <a href="#">音像</a>
+                        <span>、</span>
+                        <a href="#">数字商品</a>
+                        <i class="arrow_nav"></i>
+                    </li>
+                    <li class="clearfix">
+                        <a href="#">图书</a>
+                        <span>、</span>
+                        <a href="#">音像</a>
+                        <span>、</span>
+                        <a href="#">数字商品</a>
+                        <i class="arrow_nav"></i>
+                    </li>
+                    <li class="clearfix">
+                        <a href="#">图书</a>
+                        <span>、</span>
+                        <a href="#">音像</a>
+                        <span>、</span>
+                        <a href="#">数字商品</a>
+                        <i class="arrow_nav"></i>
+                    </li>
+                    <li class="clearfix">
+                        <a href="#">图书</a>
+                        <span>、</span>
+                        <a href="#">音像</a>
+                        <span>、</span>
+                        <a href="#">数字商品</a>
+                        <i class="arrow_nav"></i>
+                    </li>
+                    <li class="clearfix">
+                        <a href="#">图书</a>
+                        <span>、</span>
+                        <a href="#">音像</a>
+                        <span>、</span>
+                        <a href="#">数字商品</a>
+                        <i class="arrow_nav"></i>
+                    </li>
+                    <li class="clearfix">
+                        <a href="#">图书</a>
+                        <span>、</span>
+                        <a href="#">音像</a>
+                        <span>、</span>
+                        <a href="#">数字商品</a>
+                        <i class="arrow_nav"></i>
+                    </li>
+                    <li class="clearfix">
+                        <a href="#">图书</a>
+                        <span>、</span>
+                        <a href="#">音像</a>
+                        <span>、</span>
+                        <a href="#">数字商品</a>
+                        <i class="arrow_nav"></i>
+                    </li>
+                    <li class="clearfix">
+                        <a href="#">图书</a>
+                        <span>、</span>
+                        <a href="#">音像</a>
+                        <span>、</span>
+                        <a href="#">数字商品</a>
+                        <i class="arrow_nav"></i>
+                    </li>
+                    <li class="clearfix">
+                        <a href="#">图书</a>
+                        <span>、</span>
+                        <a href="#">音像</a>
+                        <span>、</span>
+                        <a href="#">数字商品</a>
+                        <i class="arrow_nav"></i>
+                    </li>
+                    <li class="clearfix">
+                        <a href="#">图书</a>
+                        <span>、</span>
+                        <a href="#">音像</a>
+                        <span>、</span>
+                        <a href="#">数字商品</a>
+                        <i class="arrow_nav"></i>
+                    </li>
+                    <li class="clearfix">
+                        <a href="#">图书</a>
+                        <span>、</span>
+                        <a href="#">音像</a>
+                        <span>、</span>
+                        <a href="#">数字商品</a>
+                        <i class="arrow_nav"></i>
+                    </li>
+                    <li class="clearfix">
+                        <a href="#">图书</a>
+                        <span>、</span>
+                        <a href="#">音像</a>
+                        <span>、</span>
+                        <a href="#">数字商品</a>
+                        <i class="arrow_nav"></i>
+                    </li>
+                    <li class="clearfix">
+                        <a href="#">图书</a>
+                        <span>、</span>
+                        <a href="#">音像</a>
+                        <span>、</span>
+                        <a href="#">数字商品</a>
+                        <i class="arrow_nav"></i>
+                    </li>
+                </ul>
+                <div class="banner fl">
+                    <div class="benner_img">
+                        <a href="#" id="banner" class="benner_sm">
+                            <img src="img/banner_01.jpg" alt="" title="" class="active"/>
+                            <img src="img/banner_02.jpg" alt="" title="" />
+                            <img src="img/banner_03.jpg" alt="" title="" />
+                            <img src="img/banner_04.jpg" alt="" title="" />
+                            <img src="img/banner_05.jpg" alt="" title="" />
+                            <img src="img/banner_06.jpg" alt="" title="" />
+                        </a>
+                        <div class="w_btn clearfix" id="w_btn">
+                            <a href="#" class="active">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#">6</a>
+                        </div>
+                    </div>
+                    <div class="pos_re">
+                        <ul class="banner_s clearfix">
+                            <li>
+                                <a href="#">
+                                    <img src="img/img_s_01.jpg" alt="" title="" />
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="img/img_s_02.jpg" alt="" title="" />
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="img/img_s_03.jpg" alt="" title="" />
+                                </a>
+                            </li>
+                        </ul>
+                        <a class="por_lt_w"></a>
+                        <a class="por_rt_w"></a>
+                    </div>
+
+                </div>
+                <div class="jd_kb fr">
+                    <div class="md">
+                        <a href="#">
+                            <img src="img/img_01.jpg" alt="" title="" />
+                        </a>
+                    </div>
+                    <div class="w_kb">
+                        <h4 class="clearfix"><span class="fl">京东快报</span><a href="#" class="fr">更多快报&gt;</a> </h4>
+                        <div class="kb_box">
+                            <a href="#">超值惠 天天秒</a>
+                            <a href="#">低至5折 最低5元</a>
+                            <a href="#">送她全球顶级鲜花</a>
+                            <a href="#">良品铺子坚果礼盒0利抢</a>
+                        </div>
+                        <div class="more_shop_box">
+                            <ul class="more_shop clearfix">
+                                <li>
+                                    <a href="#" class="w_huafei">话费</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="w_jp">机票</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="w_cp">彩票</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="w_game">游戏</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="w_lv">旅行</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="w_moive">电影票</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="w_lc">理财</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="w_sdf">水电煤</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+
+<!--李跃红-->
+<!--生活橱窗-->
+<h2 class="lyh_chu"><img src="img/lyh02.png"/></h2>
+<ul class="lyh_chuang clearfix">
+    <li class="lyh_pic">
+        <a href="#"><img src="img/lyh001.jpg"/></a>
+        <div class="opa"></div>
+        <div class="nr">
+            <p class="p1">情人街</p>
+            <p class="p2">情人节专场</p>
+            <p class="p3">费力罗满99减15</p>
+        </div>
+    </li>
+    <li class="lyh_pic">
+        <a href="#"><img src="img/lyh001.jpg"/></a>
+        <div class="opa"></div>
+        <div class="nr">
+            <p class="p1">情人街</p>
+            <p class="p2">情人节专场</p>
+            <p class="p3">费力罗满99减15</p>
+        </div>
+    </li>
+    <li class="lyh_pic">
+        <a href="#"><img src="img/lyh001.jpg"/></a>
+        <div class="opa"></div>
+        <div class="nr">
+            <p class="p1">情人街</p>
+            <p class="p2">情人节专场</p>
+            <p class="p3">费力罗满99减15</p>
+        </div>
+    </li>
+    <li class="lyh_pic lyh4_pic">
+        <a href="#"><img src="img/lyh001.jpg"/></a>
+        <div class="opa"></div>
+        <div class="nr">
+            <p class="p1">情人街</p>
+            <p class="p2">情人节专场</p>
+            <p class="p3">费力罗满99减15</p>
+        </div>
+    </li>
+    <li class="lyh_pic">
+        <a href="#"><img src="img/lyh001.jpg"/></a>
+        <div class="opa"></div>
+        <div class="nr">
+            <p class="p1">情人街</p>
+            <p class="p2">情人节专场</p>
+            <p class="p3">费力罗满99减15</p>
+        </div>
+    </li>
+    <li class="lyh_pic">
+        <a href="#"><img src="img/lyh001.jpg"/></a>
+        <div class="opa"></div>
+        <div class="nr">
+            <p class="p1">情人街</p>
+            <p class="p2">情人节专场</p>
+            <p class="p3">费力罗满99减15</p>
+        </div>
+    </li>
+    <li class="lyh_pic">
+        <a href="#"><img src="img/lyh001.jpg"/></a>
+        <div class="opa"></div>
+        <div class="nr">
+            <p class="p1">情人街</p>
+            <p class="p2">情人节专场</p>
+            <p class="p3">费力罗满99减15</p>
+        </div>
+    </li>
+    <li class="lyh_pic lyh4_pic">
+        <a href="#"><img src="img/lyh001.jpg"/></a>
+        <div class="opa"></div>
+        <div class="nr">
+            <p class="p1">情人街</p>
+            <p class="p2">情人节专场</p>
+            <p class="p3">费力罗满99减15</p>
+        </div>
+    </li>
+</ul>
+<ul class="lyh_cc clearfix">
+    <li><a href="#"><img src="img/lyh08.jpg"/></a></li>
+    <li><a href="#"><img src="img/lyh08.jpg"/></a></li>
+    <li class="last"><a href="#"><img src="img/lyh08.jpg"/></a></li>
+</ul>
+
+<!--苏元-->
+<div class="all_width su_tit clearfix">
+    <i>1F</i>
+    <h3>家电通讯</h3>
+    <ul class="su_tit_ul" id="su_ul">
+        <li class="su_tit_li">特价商品</li>
+        <li>大家电</li>
+        <li>小家电</li>
+        <li>手机通讯</li>
+        <li>汽车五金</li>
+    </ul>
+</div>
+<div class="su_cen all_width clearfix">
+    <div class="su_cen1_left">
+        <div class="su_cen1_left_l">
+            <ul>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">手机	</a></li>
+                <li><a href="#">手机	</a></li>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">洗衣机</a></li>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">洗衣机</a></li>
+            </ul>
+            <img src="img/sucen2.jpg" width="180px" height="160px;">
+        </div>
+        <div class="su_cen1_left_r">
+            <ul>
+                <li>
+                    <a href="#"><img src="img/sucen4.jpg" alt=""/></a>
+                    <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                    <i><a href="#">喜气洋洋送年货</a></i>
+                </li>
+                <li>
+                    <a href="#"><img src="img/sucen4.jpg" alt=""/></a>
+                    <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                    <i><a href="#">喜气洋洋送年货</a></i>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="su_cen1_right">
+        <ul>
+            <li class="su_cen1_r1">
+                <a href="#"><img src="img/sucen11.jpg" alt=""/></a>
+
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen4.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen4.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+
+            <li>
+                <a href="#"><img src="img/sucen4.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen4.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen4.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+        </ul>
+    </div>
+
+</div>
+<p class="su_feet all_width">
+    <a href="#"><img src="img/sufeet1.gif"></a>
+    <a href="#"><img src="img/sufeet2.gif"></a>
+    <a href="#"><img src="img/sufeet3.gif"></a>
+    <a href="#"><img src="img/sufeet4.gif"></a>
+    <a href="#"><img src="img/sufeet5.gif"></a>
+    <a href="#"><img src="img/sufeet6.gif"></a>
+    <a href="#"><img src="img/sufeet7.gif"></a>
+    <a href="#"><img src="img/sufeet8.gif"></a>
+    <a href="#"><img src="img/sufeet9.gif"></a>
+</p>
+<div class="all_width su_tit clearfix">
+    <i>2F</i>
+    <h3>家电通讯</h3>
+    <ul class="su_tit_ul" id="su_ul1">
+        <li class="su_tit_li">特价商品</li>
+        <li>大家电</li>
+        <li>小家电</li>
+        <li>手机通讯</li>
+        <li>汽车五金</li>
+    </ul>
+</div>
+<div class="su_cen all_width clearfix">
+    <div class="su_cen1_left">
+        <div class="su_cen1_left_l">
+            <ul>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">手机	</a></li>
+                <li><a href="#">手机	</a></li>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">洗衣机</a></li>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">洗衣机</a></li>
+            </ul>
+            <img src="img/sucen2.jpg" width="180px" height="160px;">
+        </div>
+        <div class="su_cen1_left_r">
+            <ul>
+                <li>
+                    <a href="#"><img src="img/sucen7.jpg" alt=""/></a>
+                    <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                    <i><a href="#">喜气洋洋送年货</a></i>
+                </li>
+                <li>
+                    <a href="#"><img src="img/sucen8.jpg" alt=""/></a>
+                    <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                    <i><a href="#">喜气洋洋送年货</a></i>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="su_cen1_right">
+        <ul>
+            <li class="su_cen1_r1">
+                <a href="#"><img src="img/sucen11.jpg" alt=""/></a>
+
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen5.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen2.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+
+            <li>
+                <a href="#"><img src="img/sucen3.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen4.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen5	.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+        </ul>
+    </div>
+
+</div>
+<p class="su_feet all_width">
+
+    <a href="#"><img src="img/sufeet6.gif"></a>
+    <a href="#"><img src="img/sufeet7.gif"></a>
+    <a href="#"><img src="img/sufeet8.gif"></a>
+    <a href="#"><img src="img/sufeet9.gif"></a>
+    <a href="#"><img src="img/sufeet1.gif"></a>
+    <a href="#"><img src="img/sufeet2.gif"></a>
+    <a href="#"><img src="img/sufeet3.gif"></a>
+    <a href="#"><img src="img/sufeet4.gif"></a>
+    <a href="#"><img src="img/sufeet5.gif"></a>
+</p>
+
+<!--离跃红-->
+
+<!--3F服饰鞋包-->
+<div class="lyh3f clearfix">
+    <i></i>
+    <h3>服饰鞋包</h3>
+    <ul class="lyh3f_1">
+        <li class="lyh3f_01">特价商品</li>
+        <li>大家电</li>
+        <li>小家电</li>
+        <li>手机通讯</li>
+        <li>汽车五金</li>
+    </ul>
+</div>
+<div class="lyhdh clearfix">
+    <div class="lyhzuo clearfix">
+        <ul class="lyhzuo1">
+            <li class="first"><a href="#">女装</a></li>
+            <li><a href="#">服饰</a></li>
+            <li><a href="#">箱包配饰</a></li>
+            <li><a href="#">女装</a></li>
+            <li><a href="#">服饰</a></li>
+            <li><a href="#">箱包配饰</a></li>
+            <li><a href="#">女装</a></li>
+            <li><a href="#">服饰</a></li>
+            <li><a href="#">箱包配饰</a></li>
+            <li><a href="#">女装</a></li>
+            <li><a href="#">服饰</a></li>
+            <li><a href="#">箱包配饰</a></li>
+            <li><a href="#">女装</a></li>
+            <li><a href="#">服饰</a></li>
+        </ul>
+        <a href="#" class="lyhzuo2"><img src="img/lyh03.jpg"/></a>
+    </div>
+    <ul class="lyhyou clearfix">
+        <li  class="lyhyou1">
+            <a href="#"><img src="img/lyh11.jpg"/></a>
+            <a href="#"><img src="img/lyh12.jpg"/></a>
+        </li>
+        <li  class="lyhyou1">
+            <a href="#"><img src="img/lyh14.jpg"/></a>
+        </li>
+        <li  class="lyhyou1">
+            <a href="#"><img src="img/lyh14.jpg"/></a>
+        </li>
+        <li  class="lyhyou1">
+            <a href="#"><img src="img/lyh14.jpg"/></a>
+        </li>
+        <li  class="lyhyou2">
+            <a href="#"><img src="img/lyh15.jpg"/></a>
+            <a href="#"><img src="img/lyh16.jpg"/></a>
+        </li>
+    </ul>
+</div>
+<ul class="lyhpin clearfix">
+    <li>
+        <a href="#"><img src="img/lyh17.gif"></a>
+    </li>
+    <li>
+        <a href="#"><img src="img/lyh17.gif"></a>
+    </li>
+    <li>
+        <a href="#"><img src="img/lyh17.gif"></a>
+    </li>
+    <li>
+        <a href="#"><img src="img/lyh17.gif"></a>
+    </li>
+    <li>
+        <a href="#"><img src="img/lyh17.gif"></a>
+    </li>
+    <li>
+        <a href="#"><img src="img/lyh17.gif"></a>
+    </li>
+    <li>
+        <a href="#"><img src="img/lyh17.gif"></a>
+    </li>
+    <li>
+        <a href="#"><img src="img/lyh17.gif"></a>
+    </li>
+    <li>
+        <a href="#"><img src="img/lyh17.gif"></a>
+    </li>
+    <li>
+        <a href="#"><img src="img/lyh17.gif"></a>
+    </li>
+
+</ul>
+
+
+<!--苏元-->
+<div class="all_width su_tit clearfix">
+    <i>4F</i>
+    <h3>家电通讯</h3>
+    <ul class="su_tit_ul" id="su_ul2">
+        <li class="su_tit_li">特价商品</li>
+        <li>大家电</li>
+        <li>小家电</li>
+        <li>手机通讯</li>
+        <li>汽车五金</li>
+    </ul>
+</div>
+<div class="su_cen all_width clearfix">
+    <div class="su_cen1_left">
+        <div class="su_cen1_left_l">
+            <ul>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">手机	</a></li>
+                <li><a href="#">手机	</a></li>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">洗衣机</a></li>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">洗衣机</a></li>
+            </ul>
+            <img src="img/sucen2.jpg" width="180px" height="160px;">
+        </div>
+        <div class="su_cen1_left_r">
+            <ul>
+                <li>
+                    <a href="#"><img src="img/sucen7.jpg" alt=""/></a>
+                    <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                    <i><a href="#">喜气洋洋送年货</a></i>
+                </li>
+                <li>
+                    <a href="#"><img src="img/sucen8.jpg" alt=""/></a>
+                    <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                    <i><a href="#">喜气洋洋送年货</a></i>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="su_cen1_right">
+        <ul>
+            <li class="su_cen1_r1">
+                <a href="#"><img src="img/sucen11.jpg" alt=""/></a>
+
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen3.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen4.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen5	.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen5.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen2.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+
+
+        </ul>
+    </div>
+
+</div>
+<p class="su_feet all_width">
+
+    <a href="#"><img src="img/sufeet6.gif"></a>
+    <a href="#"><img src="img/sufeet7.gif"></a>
+    <a href="#"><img src="img/sufeet8.gif"></a>
+    <a href="#"><img src="img/sufeet9.gif"></a>
+    <a href="#"><img src="img/sufeet1.gif"></a>
+    <a href="#"><img src="img/sufeet2.gif"></a>
+    <a href="#"><img src="img/sufeet3.gif"></a>
+    <a href="#"><img src="img/sufeet4.gif"></a>
+    <a href="#"><img src="img/sufeet5.gif"></a>
+</p>
+<div class="all_width su_tit clearfix">
+    <i>5F</i>
+    <h3>家电通讯</h3>
+    <ul class="su_tit_ul" id="su_ul3">
+        <li class="su_tit_li">特价商品</li>
+        <li>大家电</li>
+        <li>小家电</li>
+        <li>手机通讯</li>
+        <li>汽车五金</li>
+    </ul>
+</div>
+<div class="su_cen all_width clearfix">
+    <div class="su_cen1_left">
+        <div class="su_cen1_left_l">
+            <ul>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">手机	</a></li>
+                <li><a href="#">手机	</a></li>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">洗衣机</a></li>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">洗衣机</a></li>
+            </ul>
+            <img src="img/sucen2.jpg" width="180px" height="160px;">
+        </div>
+        <div class="su_cen1_left_r">
+            <ul>
+                <li>
+                    <a href="#"><img src="img/sucen8.jpg" alt=""/></a>
+                    <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                    <i><a href="#">喜气洋洋送年货</a></i>
+                </li>
+                <li>
+                    <a href="#"><img src="img/sucen9.jpg" alt=""/></a>
+                    <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                    <i><a href="#">喜气洋洋送年货</a></i>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="su_cen1_right">
+        <ul>
+            <li class="su_cen1_r1">
+                <a href="#"><img src="img/sucen11.jpg" alt=""/></a>
+
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen3.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+
+            <li>
+                <a href="#"><img src="img/sucen2.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen4.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen5	.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen5.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+
+
+        </ul>
+    </div>
+
+</div>
+<p class="su_feet all_width">
+
+    <a href="#"><img src="img/sufeet6.gif"></a>
+    <a href="#"><img src="img/sufeet4.gif"></a>
+    <a href="#"><img src="img/sufeet5.gif"></a>
+    <a href="#"><img src="img/sufeet7.gif"></a>
+    <a href="#"><img src="img/sufeet8.gif"></a>
+    <a href="#"><img src="img/sufeet9.gif"></a>
+    <a href="#"><img src="img/sufeet1.gif"></a>
+    <a href="#"><img src="img/sufeet2.gif"></a>
+    <a href="#"><img src="img/sufeet3.gif"></a>
+</p>
+<div class="all_width su_tit clearfix">
+    <i>5F</i>
+    <h3>家电通讯</h3>
+    <ul class="su_tit_ul" id="su_ul3">
+        <li class="su_tit_li">特价商品</li>
+        <li>大家电</li>
+        <li>小家电</li>
+        <li>手机通讯</li>
+        <li>汽车五金</li>
+    </ul>
+</div>
+<div class="su_cen all_width clearfix">
+    <div class="su_cen1_left">
+        <div class="su_cen1_left_l">
+            <ul>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">手机	</a></li>
+                <li><a href="#">手机	</a></li>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">洗衣机</a></li>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">洗衣机</a></li>
+            </ul>
+            <img src="img/sucen2.jpg" width="180px" height="160px;">
+        </div>
+        <div class="su_cen1_left_r">
+            <ul>
+                <li>
+                    <a href="#"><img src="img/sucen8.jpg" alt=""/></a>
+                    <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                    <i><a href="#">喜气洋洋送年货</a></i>
+                </li>
+                <li>
+                    <a href="#"><img src="img/sucen9.jpg" alt=""/></a>
+                    <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                    <i><a href="#">喜气洋洋送年货</a></i>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="su_cen1_right">
+        <ul>
+            <li class="su_cen1_r1">
+                <a href="#"><img src="img/sucen11.jpg" alt=""/></a>
+
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen3.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+
+            <li>
+                <a href="#"><img src="img/sucen2.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen4.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen5	.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen5.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+
+
+        </ul>
+    </div>
+
+</div>
+<p class="su_feet all_width">
+
+    <a href="#"><img src="img/sufeet6.gif"></a>
+    <a href="#"><img src="img/sufeet4.gif"></a>
+    <a href="#"><img src="img/sufeet5.gif"></a>
+    <a href="#"><img src="img/sufeet7.gif"></a>
+    <a href="#"><img src="img/sufeet8.gif"></a>
+    <a href="#"><img src="img/sufeet9.gif"></a>
+    <a href="#"><img src="img/sufeet1.gif"></a>
+    <a href="#"><img src="img/sufeet2.gif"></a>
+    <a href="#"><img src="img/sufeet3.gif"></a>
+</p>
+<div class="all_width su_tit clearfix">
+    <i>5F</i>
+    <h3>家电通讯</h3>
+    <ul class="su_tit_ul" id="su_ul3">
+        <li class="su_tit_li">特价商品</li>
+        <li>大家电</li>
+        <li>小家电</li>
+        <li>手机通讯</li>
+        <li>汽车五金</li>
+    </ul>
+</div>
+<div class="su_cen all_width clearfix">
+    <div class="su_cen1_left">
+        <div class="su_cen1_left_l">
+            <ul>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">手机	</a></li>
+                <li><a href="#">手机	</a></li>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">洗衣机</a></li>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">手机配件</a></li>
+                <li><a href="#">话费补贴	</a></li>
+                <li><a href="#">生活电器	</a></li>
+                <li><a href="#">洗衣机</a></li>
+            </ul>
+            <img src="img/sucen2.jpg" width="180px" height="160px;">
+        </div>
+        <div class="su_cen1_left_r">
+            <ul>
+                <li>
+                    <a href="#"><img src="img/sucen8.jpg" alt=""/></a>
+                    <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                    <i><a href="#">喜气洋洋送年货</a></i>
+                </li>
+                <li>
+                    <a href="#"><img src="img/sucen9.jpg" alt=""/></a>
+                    <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                    <i><a href="#">喜气洋洋送年货</a></i>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="su_cen1_right">
+        <ul>
+            <li class="su_cen1_r1">
+                <a href="#"><img src="img/sucen11.jpg" alt=""/></a>
+
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen3.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+
+            <li>
+                <a href="#"><img src="img/sucen2.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen4.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen5	.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+            <li>
+                <a href="#"><img src="img/sucen5.jpg" alt=""/></a>
+                <p><a href="#">49.4K电视预售 2999元，42×智能电视2499</a></p>
+                <i><a href="#">喜气洋洋送年货</a></i>
+            </li>
+
+
+        </ul>
+    </div>
+
+</div>
+<p class="su_feet all_width">
+
+    <a href="#"><img src="img/sufeet6.gif"></a>
+    <a href="#"><img src="img/sufeet4.gif"></a>
+    <a href="#"><img src="img/sufeet5.gif"></a>
+    <a href="#"><img src="img/sufeet7.gif"></a>
+    <a href="#"><img src="img/sufeet8.gif"></a>
+    <a href="#"><img src="img/sufeet9.gif"></a>
+    <a href="#"><img src="img/sufeet1.gif"></a>
+    <a href="#"><img src="img/sufeet2.gif"></a>
+    <a href="#"><img src="img/sufeet3.gif"></a>
+</p>
+
+
+
+<!--崔光宇-->
+
+<div class="box_c clearfix"><!--总框-->
+    <div class="left_box fl clearfix"><!--左侧总框-->
+        <div class="ll_box fl"><!--左左框-->
+            <div class="llt_box"><!--左左上-->
+                <h3 class="h_font">热门晒单</h3>
+                <i class="dingwei_l"></i>
+                <i class="dingwei_2"></i>
+                <div class="clearfix">
+                    <i class="show fl"></i>
+                		<span class="vic fl">
+                		<p>威士VICTOURINOX瑞士军刀标准系列猎人</p>
+                		<p class="vic_p">威士VICTOURINOX瑞士军刀标准系列猎人</p>
+                		</span>
+                </div>
+            </div><!--左左上-->
+
+            <div class="llb_box"><!--左左下-->
+                <i class="dingwei_3"></i>
+                <i class="dingwei_4"></i>
+                <div class="clearfix">
+                    <i class="show_a fl"></i>
+                		<span class="vic fl">
+                		<p>威士VICTOURINOX瑞士军刀标准系列猎人</p>
+                		<p class="vic_p">威士VICTOURINOX瑞士军刀标准系列猎人</p>
+                		</span>
+                </div>
+            </div><!--左左上-->
+        </div><!--左左框-->
+        <!--左左-->
+        <div class="ll_box fr" style="margin-top:-192px;"><!--左左框-->
+            <div class="llt_box"><!--左左上-->
+                <h3 class="h_font">热门晒单</h3>
+                <i class="dingwei_l"></i>
+                <i class="dingwei_2"></i>
+                <div class="clearfix">
+                    <i class="show fl"></i>
+                		<span class="vic fl">
+                		<p>威士VICTOURINOX瑞士军刀标准系列猎人</p>
+                		<p class="vic_p">威士VICTOURINOX瑞士军刀标准系列猎人</p>
+                		</span>
+                </div>
+            </div><!--左左上-->
+
+            <div class="llb_box"><!--左左下-->
+                <i class="dingwei_3"></i>
+                <i class="dingwei_4"></i>
+                <div class="clearfix">
+                    <i class="show_a fl"></i>
+                		<span class="vic fl">
+                		<p>威士VICTOURINOX瑞士军刀标准系列猎人</p>
+                		<p class="vic_p">威士VICTOURINOX瑞士军刀标准系列猎人</p>
+                		</span>
+                </div>
+            </div><!--左左上-->
+        </div><!--左左框-->
+
+    </div><!--左侧总框-->
+
+    <div class="right_box fr"><!--右侧总框-->
+        <div class="r_top clearfix"><!--左上在线阅读-->
+            <h3 class="r_online fl">在线阅读</h3>
+            <a href="#" class="r_more fr">更多在线读书</a>
+        </div><!--左上在线阅读-->
+        <div class="cgy">
+            <ul>
+                <li><a href="#" class="book_font">《来到地球第一天》新书特惠</a></li>
+                <li><a href="#" class="book_font">《来到地球第一天》新书特惠</a></li>
+                <li><a href="#" class="book_font">《来到地球第一天》新书特惠</a></li>
+                <li><a href="#" class="book_font">《来到地球第一天》新书特惠</a></li>
+            </ul>
+        </div>
+
+    </div><!--右侧总框-->
+    <div class="cgy_last fr">
+        <p class="cgy_infor">订阅促销信息</p>
+        <input type="text" placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入您的Email地址" class="input_email"/>
+        <input type="submit" value="订阅" class="dingyue" />
+    </div>
+</div><!--总框-->
+
+<!--李忠达-->
+<div class="box clearfix">
+    <div class="pz clearfix">
+        <div class="pz1"></div>
+        <div class="pz2">
+            <h3 class="pz3">配送方式</h3>
+            <p><a href="#" class="pz4">上门自提</a></p>
+            <p><a href="#" class="pz4">211限时达</a></p>
+            <p><a href="#" class="pz4">配送服务查询</a></p>
+            <p><a href="#" class="pz4">配送费收取</a></p>
+            <p><a href="#" class="pz4">海外配送</a></p>
+
+        </div>
+    </div>
+    <div class="pz clearfix">
+        <div class="pz1"></div>
+        <div class="pz2">
+            <h3 class="pz3">支付方式</h3>
+            <p><a href="#" class="pz4">货到付款</a></p>
+            <p><a href="#" class="pz4">在线支付</a></p>
+            <p><a href="#" class="pz4">分期付款</a></p>
+            <p><a href="#" class="pz4">银行汇款</a></p>
+            <p><a href="#" class="pz4">公司转账</a></p>
+        </div>
+    </div>
+    <div class="pz clearfix">
+        <div class="pz1"></div>
+        <div class="pz2">
+            <h3 class="pz3">购物流程</h3>
+            <p><a href="#" class="pz4">购物流程</a></p>
+            <p><a href="#" class="pz4">会员介绍</a></p>
+            <p><a href="#" class="pz4">团购机票</a></p>
+            <p><a href="#" class="pz4">常见问题</a></p>
+            <p><a href="#" class="pz4">大家电</a></p>
+            <p><a href="#" class="pz4">联系客服</a></p>
+        </div>
+    </div>
+    <div class="pz clearfix">
+        <div class="pz1"></div>
+        <div class="pz2">
+            <h3 class="pz3">售后服务</h3>
+            <p><a href="#" class="pz4">售后政策</a></p>
+            <p><a href="#" class="pz4">价格保护</a></p>
+            <p><a href="#" class="pz4">退款说明</a></p>
+            <p><a href="#" class="pz4">返修</a></p>
+            <p><a href="#" class="pz4">取消订单</a></p>
+
+        </div>
+    </div>
+    <div class="pz clearfix">
+        <div class="pz1"></div>
+        <div class="pz2">
+            <h3 class="pz3">特色服务</h3>
+            <p><a href="#" class="pz4">夺宝岛</a></p>
+            <p><a href="#" class="pz4">DIY装机</a></p>
+            <p><a href="#" class="pz4">延保服务</a></p>
+            <p><a href="#" class="pz4">京东E卡</a></p>
+            <p><a href="#" class="pz4">节能补贴</a></p>
+            <p><a href="#" class="pz4">京东通信</a></p>
+        </div>
+    </div>
+    <div class="pz5">
+        <h3>京东自营覆盖区县</h3>
+        <p>京东以向全国1893个县提供自营配送服务,支持货到付款,pos机刷卡合售后服务。</p>
+        <a href="#">查看详情&gt;</a>
+    </div>
+</div>
+
+<ul class="db clearfix">
+    <li class="db1">
+        <a href="#">关于我们</a>
+        <i>|</i>
+    </li>
+    <li class="db1">
+        <a href="#">关于我们</a>
+        <i>|</i>
+    </li>
+    <li class="db1">
+        <a href="#">关于我们</a>
+        <i>|</i>
+    </li>
+    <li class="db1">
+        <a href="#">关于我们</a>
+        <i>|</i>
+    </li>
+    <li class="db1">
+        <a href="#">关于我们</a>
+        <i>|</i>
+    </li>
+    <li class="db1">
+        <a href="#">关于我们</a>
+        <i>|</i>
+    </li>
+    <li class="db1">
+        <a href="#">关于我们</a>
+        <i>|</i>
+    </li>
+    <li class="db1">
+        <a href="#">关于我们</a>99 
+        <i>|</i>
+    </li>
+    <li class="db1">
+        <a href="#">关于我们</a>
+        <i>|</i>
+    </li>
+    <li class="db1">
+        <a href="#">关于我们</a>
+
+    </li>
+</ul>
+<p class="wbb">北京市公安局朝阳分局备案编号110105014669  |  京ICP证070359号  |<a href="#"> 互联网药品信息服务资格证编号(京)-经营性-2014-0008 </a>新出发京零 字第大120007号</p>
+<p class="wbb1"><a href="#">音像制品经营许可证苏宿批005号</a>  |  出版物经营许可证编号新出发(苏)批字第N-012号  |  互联网出版许可证编号新出网证(京)字150号</p>
+<p class="wbb2"><a href="#">网络文化经营许可证京网文[2014]2148-348号</a> 违法和不良信息举报电话：4006561155  Copyright © 2004-2015  京东JD.com 版权所有</p>
+<p class="wbb3">京东旗下网站：<a href="#"><360TOP /a><a href="#"> 拍拍网</a><a href="#"> 网银在线</a></p>
+<div class="xzh">
+    <a href="#"><img src="img/6.png"/></a>
+    <a href="#"><img src="img/7.png"/></a>
+    <a href="#"><img src="img/8.png"/></a>
+    <a href="#"><img src="img/9.png"/></a>
+</div>
+</body>
+</html>

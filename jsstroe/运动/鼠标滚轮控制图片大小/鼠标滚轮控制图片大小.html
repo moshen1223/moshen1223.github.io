@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+body{
+	background: #273041;
+}
+*{margin:0; padding:0;}
+img{position:absolute; top:200px; left:200px;}
+</style>
+<script src="wheel.js"></script>
+<script>
+window.onload=function(){
+	var oImg = document.body.children[0];
+	addWheel(oImg,function(dir,oEvent){
+		var scaleX = (oEvent.clientX-oImg.offsetLeft)/oImg.offsetWidth;
+		var scaleY = (oEvent.clientY-oImg.offsetTop)/oImg.offsetHeight;
+		if(dir){
+			//放大
+			oImg.style.width=oImg.offsetWidth+10+'px';
+			oImg.style.height=oImg.offsetHeight+10+'px';
+		}else{
+			//缩小
+			oImg.style.width=oImg.offsetWidth-10+'px';
+			oImg.style.height=oImg.offsetHeight-10+'px';
+		}
+		oImg.style.left = oEvent.clientX-scaleX*oImg.offsetWidth+'px';
+		oImg.style.top = oEvent.clientY-scaleY*oImg.offsetHeight+'px';
+		
+		
+		
+	});
+};
+</script>
+</head>
+
+<body>
+<img src="1.jpg" />
+</body>
+</html>

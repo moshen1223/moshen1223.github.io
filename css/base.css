@@ -1,0 +1,80 @@
+@charset "utf-8";
+	a,body {
+	color:#000
+}
+body,h1,h2,h3,h4,h5,h6 {
+	font-size:12px
+}
+.fl,.fr {
+	display:inline
+}
+* {
+	padding:0;
+	margin:0;
+	line-height:100%
+}
+body {
+	font-family:'microsoft yahei'
+}
+ol,ul {
+	list-style:none
+}
+a {
+	text-decoration:none
+}
+em,i {
+	font-style:normal
+}
+b,strong {
+	font-weight:400
+}
+a img {
+	border:none
+}
+input,textarea {
+	outline:0
+}
+.clearfix {
+	zoom:1
+}
+.fl {
+	float:left
+}
+.fr {
+	float:right
+}
+.bor_bt {
+	border-bottom:0
+}
+.bor_rt {
+	border-right:0
+}
+.bor_lt {
+	border-left:0
+}
+.bor_top {
+	border-top:0
+}
+img {
+	vertical-align:top
+}
+.mt30 {
+	margin-top:30px
+}
+.por {
+	position:relative
+}
+.user:after,nav:after,section:after {
+	content:' ';
+	clear:both;
+	display:block
+}
+.clearfix:after {
+	display:block;
+	content:"";
+	clear:both
+}
+.wrapper {
+	width:1200px;
+	margin:0 auto
+}

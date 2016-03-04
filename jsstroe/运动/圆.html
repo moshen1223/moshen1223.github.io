@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>圆</title>
+<style>
+body{background:#273041;}
+*{margin:0; padding:0;}
+#box{width:300px;height:300px; border:1px solid #000; border-radius:50%; position:absolute; top:100px; left:100px;}
+#box span{ position:absolute; top:0; left:50%; width:50px; height:50px; background:red; border-radius:50%; margin-left:-25px; margin-top:-25px;}
+</style>
+<script>
+window.onload=function(){
+	var oBox = document.getElementById('box');
+	//大圆的半径
+	var R = oBox.offsetWidth/2;
+	//控制有多少个小球
+	var N = 10;
+	//批量创建小球
+	for(var i=0;i<N;i++){
+		var oS = document.createElement('span');
+		oBox.appendChild(oS);
+	}
+	var aS = oBox.children;
+	//开关，控制收放
+	var bOk = true;
+	oBox.onclick=function(){
+		//判断是收还是放
+		if(bOk){	
+			//放,每个球走到应有的位置
+			for(var i=0;i<aS.length;i++){
+				start(aS[i],i*360/aS.length);
+			}
+		}else{
+			//收,每个球走到0
+			for(var i=0;i<aS.length;i++){
+				start(aS[i],0);
+			}
+		}
+		bOk=!bOk;
+	};
+	function start(obj,iTarget){
+		//每个球都有自己的起点，角度
+		var start = obj.a||0;
+		var dis = iTarget-start;
+		var count = Math.floor(700/30);
+		var n = 0;
+		clearInterval(obj.timer);
+		obj.timer = setInterval(function(){
+			n++;
+			var a = 1-n/count;
+			var cur = start+dis*(1-Math.pow(a,3));
+			//通过公式求出每个球的坐标
+			var x = R+Math.sin(cur*Math.PI/180)*R;
+			var y = R-Math.cos(cur*Math.PI/180)*R;
+			obj.a = cur;
+			obj.style.left = x+'px';
+			obj.style.top = y+'px';
+			if(n==count){
+				clearInterval(obj.timer);
+			}
+		},30);
+	}
+};
+</script>
+</head>
+
+<body>
+<div id="box">
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

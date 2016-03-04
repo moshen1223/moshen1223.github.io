@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>屏保</title>
+	<style>
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	body {
+		overflow: hidden;
+	}
+	canvas {
+		background: #000;
+	}
+	</style>
+	<script>
+	'use strict';
+	function rnd(n,m){
+		return parseInt(n+Math.random()*(m-n));
+	}
+	window.onload = function(){
+		var oC = document.getElementById('c1');
+		var gc = oC.getContext('2d');
+		var winW = document.documentElement.clientWidth;
+		var winH = document.documentElement.clientHeight;
+		oC.width = winW;
+		oC.height = winH;
+		var N = 5;
+		var len = 30;
+		var oldPos = [];
+		var r = rnd(0,256);
+		var color = {
+			r: rnd(0,256),
+			g: rnd(0,256),
+			b: rnd(0,256)
+		};
+		var timerR = null;
+		var timerG = null;
+		var timerB = null;
+		moveR(color.r);
+		moveG(color.g);
+		moveB(color.b);
+		//创建随机点
+		var aPoint = [];
+		for(var i=0;i<N;i++){
+			aPoint.push({
+				x: rnd(0,winW),
+				y: rnd(0,winH),
+				speedX: rnd(-10,10),
+				speedY: rnd(-10,10)
+			});
+		}
+		setInterval(function(){
+			console.log(color.r+','+color.g+','+color.b);
+			gc.clearRect(0,0,winW,winH);
+			var arr = [];
+			for(var i=0;i<N;i++){
+				aPoint[i].x += aPoint[i].speedX;
+				aPoint[i].y += aPoint[i].speedY;
+				if(aPoint[i].x<0||aPoint[i].x>winW){
+					aPoint[i].speedX *= -1;
+				}
+				if(aPoint[i].y<0||aPoint[i].y>winH){
+					aPoint[i].speedY *= -1;
+				}
+				drawPoint(aPoint[i]);
+				arr.push({
+					x: aPoint[i].x,
+					y: aPoint[i].y
+				});
+			}
+			//存旧点
+			oldPos.push(arr);
+			while(oldPos.length>len)oldPos.shift();
+			//画主线
+			gc.beginPath();
+			gc.strokeStyle = 'rgb('+color.r+','+color.g+','+color.b+')';
+			gc.moveTo(aPoint[0].x,aPoint[0].y);
+			for(var i=1;i<N;i++){
+				gc.lineTo(aPoint[i].x,aPoint[i].y);
+			}
+			gc.closePath();
+			gc.stroke();
+			//画旧线
+			for(var i=0;i<oldPos.length;i++){
+				gc.beginPath();
+				var opacity = i/oldPos.length*0.8;
+				gc.strokeStyle = 'rgba('+color.r+','+color.g+','+color.b+','+opacity+')';
+				gc.moveTo(oldPos[i][0].x,oldPos[0].y);
+				for(var j=0;j<N;j++){
+					gc.lineTo(oldPos[i][j].x,oldPos[i][j].y);
+				}
+				gc.closePath();
+				gc.stroke();
+			}
+		},16);
+		function drawPoint(point){
+			gc.beginPath();
+			gc.fillStyle = 'rgb('+color.r+','+color.g+','+color.b+')';
+			gc.fillRect(point.x,point.y,1,1);
+			gc.closePath();
+		}
+		//测试颜色
+		function moveR(start){
+			//console.log('start---'+start);
+			clearInterval(timerR);
+			var iTarget = rnd(0,256);
+			//console.log('iTarget---'+iTarget);
+			var dis = iTarget-start;
+			//console.log('dis---'+dis);
+			var n = 0;
+			//console.log('n---'+n);
+			var cur = dis/Math.abs(dis);
+			//console.log('cur---'+cur);
+			timerR = setInterval(function(){
+				n++;
+				start += cur;
+				color.r = start;
+				if(start==255){
+					cur *= -1;
+				}
+				if(start==0){
+					cur *= -1;
+				}
+				if(n==Math.abs(dis)){
+					//alert(1);
+					clearInterval(timerR);
+					moveR(start);
+				}
+			},16);
+		}
+		function moveG(start){
+			//console.log('start---'+start);
+			clearInterval(timerG);
+			var iTarget = rnd(0,256);
+			//console.log('iTarget---'+iTarget);
+			var dis = iTarget-start;
+			//console.log('dis---'+dis);
+			var n = 0;
+			//console.log('n---'+n);
+			var cur = dis/Math.abs(dis);
+			//console.log('cur---'+cur);
+			timerG = setInterval(function(){
+				n++;
+				start += cur;
+				color.g = start;
+				if(start==255){
+					cur *= -1;
+				}
+				if(start==0){
+					cur *= -1;
+				}
+				if(n==Math.abs(dis)){
+					//alert(1);
+					clearInterval(timerG);
+					moveG(start);
+				}
+			},16);
+		}
+		function moveB(start){
+			//console.log('start---'+start);
+			clearInterval(timerB);
+			var iTarget = rnd(0,256);
+			//console.log('iTarget---'+iTarget);
+			var dis = iTarget-start;
+			//console.log('dis---'+dis);
+			var n = 0;
+			//console.log('n---'+n);
+			var cur = dis/Math.abs(dis);
+			//console.log('cur---'+cur);
+			timerB = setInterval(function(){
+				n++;
+				start += cur;
+				color.b = start;
+				if(start==255){
+					cur *= -1;
+				}
+				if(start==0){
+					cur *= -1;
+				}
+				if(n==Math.abs(dis)){
+					//alert(1);
+					clearInterval(timerB);
+					moveB(start);
+				}
+			},30);
+		}
+	};
+	</script>
+</head>
+<body>
+	<canvas id="c1"></canvas>
+</body>
+</html>

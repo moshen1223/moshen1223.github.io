@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>照片墙</title>
+<style>
+*{margin:0; padding:0; list-style:none;}
+body{ text-align:center;background:#273041;}
+ul{width:636px; margin:5px auto;}
+li{float:left; width:200px; height:200px; margin:5px; border:1px solid #000;}
+li img{width:100%;}
+li.on{border:2px dashed red;}
+</style>
+<script src="move.js" ></script>
+<script>
+window.onload=function(){
+	var oBtn = document.body.children[0];
+	var oUl = document.body.children[1];
+	var aLi = oUl.children;
+	var zIndex = 10;
+	//布局转换
+	var aPos = [];
+	for(var i=0;i<aLi.length;i++){
+		aPos.push({left:aLi[i].offsetLeft,top:aLi[i].offsetTop});
+	}
+	for(var i=0;i<aLi.length;i++){
+		aLi[i].style.left = aPos[i].left+'px';
+		aLi[i].style.top = aPos[i].top+'px';
+		aLi[i].style.position='absolute';
+		aLi[i].style.margin=0;
+	}
+	//每个都能拖拽
+	for(var i=0;i<aLi.length;i++){
+		drag(aLi[i]);
+		aLi[i].index=i;
+	}
+	
+	
+	oBtn.onclick=function(){
+		aPos.sort(function(){
+			return Math.random()-0.5;
+		});
+		for(var i=0;i<aLi.length;i++){
+			//aLi[i].style.left = aPos[i].left+'px';
+			//aLi[i].style.top = aPos[i].top+'px';
+			startMove(aLi[i],aPos[i]);
+			aLi[i].index = i;
+		}
+	};
+	
+	
+	
+	function drag(obj){
+		obj.onmousedown=function(ev){
+			zIndex++;
+			obj.style.zIndex=zIndex;
+			var oEvent = ev||event;
+			var disX = oEvent.clientX-obj.offsetLeft;
+			var disY = oEvent.clientY-obj.offsetTop;
+			document.onmousemove=function(ev){
+				var oEvent = ev||event;
+				obj.style.left = oEvent.clientX-disX+'px';
+				obj.style.top = oEvent.clientY-disY+'px';
+				for(var i=0;i<aLi.length;i++){
+					aLi[i].className='';
+				}
+				//找到最近的元素
+				var oNear = findNearest(obj);
+				//如果找到了，就加个on
+				if(oNear){
+					oNear.className='on';
+				}
+			};
+			document.onmouseup=function(){
+				document.onmousemove=null;
+				document.onmouseup=null;
+				obj.releaseCapture&&obj.releaseCapture();
+				var oNear = findNearest(obj);
+				if(oNear){
+					oNear.className='';
+					
+					startMove(obj,aPos[oNear.index]);
+					//obj.style.left = aPos[oNear.index].left+'px';
+					//obj.style.top = aPos[oNear.index].top+'px';
+					startMove(oNear,aPos[obj.index]);
+					//oNear.style.left = aPos[obj.index].left+'px';
+					//oNear.style.top = aPos[obj.index].top+'px';
+					var car;
+					car = obj.index;
+					obj.index = oNear.index;
+					oNear.index = car;
+				}else{
+					obj.style.left = aPos[obj.index].left+'px';
+					obj.style.top = aPos[obj.index].top+'px';
+				}
+			};
+			obj.setCapture&&obj.setCapture();
+			return false;
+		};
+	}
+	//找最近
+	function findNearest(obj){
+		//假设一个最近的值
+		var iMin = new Date().getTime();
+		//假设一个最近的索引
+		var iMinIndex = -1;
+		for(var i=0;i<aLi.length;i++){
+			//如果跟obj相等，代表找到了当前这个元素。
+			if(obj==aLi[i])continue;
+			//如果碰到了，就要找最近的
+			if(callTest(obj,aLi[i])){
+				//比对交换
+				if(iMin>getDis(obj,aLi[i])){
+					iMin = getDis(obj,aLi[i]);
+					iMinIndex = i;
+				}
+			}
+		}
+		//如果iMinIndex等于-1代表没找到。
+		if(iMinIndex==-1){
+			return null;
+		}else{
+			return aLi[iMinIndex];
+		}
+	}
+
+	function callTest(obj,obj2){
+		var l1 = obj.offsetLeft;
+		var t1 = obj.offsetTop;
+		var r1 = obj.offsetLeft+obj.offsetWidth;
+		var b1 = obj.offsetTop+obj.offsetHeight;
+		var l2 = obj2.offsetLeft;
+		var t2 = obj2.offsetTop;
+		var r2 = obj2.offsetLeft+obj2.offsetWidth;
+		var b2 = obj2.offsetTop+obj2.offsetHeight;
+		if(r1<l2||b1<t2||l1>r2||t1>b2){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	function getDis(obj,obj2){
+		var l1 = obj.offsetLeft+obj.offsetWidth/2;
+		var l2 = obj2.offsetLeft+obj2.offsetWidth/2;
+		var t1 = obj.offsetTop+obj.offsetHeight/2;
+		var t2 = obj2.offsetTop+obj2.offsetHeight/2;
+		var a = l2-l1;
+		var b = t2-t1;
+		return Math.sqrt(Math.pow(a,2)+Math.pow(b,2));
+	}
+};
+</script>
+</head>
+
+<body>
+<input type="button" value="换一换" />
+<ul>
+	<li><img src="cat/1.jpg" /></li>
+	<li><img src="cat/2.jpg" /></li>
+	<li><img src="cat/3.jpg" /></li>
+	<li><img src="cat/4.jpg" /></li>
+	<li><img src="cat/5.jpg" /></li>
+	<li><img src="cat/6.jpg" /></li>
+	<li><img src="cat/7.jpg" /></li>
+	<li><img src="cat/8.jpg" /></li>
+	<li><img src="cat/9.jpg" /></li>
+</ul>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

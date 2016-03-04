@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>分块运动</title>
+<style>
+body{background:#273041;}
+*{margin:0; padding:0;}
+#box{width:700px; height:400px; background:url(img/0.jpg) no-repeat; margin:100px auto; position:relative; top:0; left:0;}
+#box span{background:url(img/0.jpg) no-repeat; opacity:0;}
+</style>
+<script src="move.js"></script>
+<script>
+window.onload=function(){
+	var oBtn = document.getElementsByTagName('input')[0];
+	var oBox = document.getElementById('box');
+	
+	//R控制有多少行
+	var R = 4;
+	//C控制有多少列
+	var C = 7;
+	//根据有多少行，多少列，创建元素
+	for(var r = 0;r<R;r++){
+		for(var c = 0;c<C;c++){
+			//设置位置和宽高和背景图位置
+			var oS = document.createElement('span');
+			oS.style.width=oBox.offsetWidth/C+'px';
+			oS.style.height=oBox.offsetHeight/R+'px';
+			//必须要先插入，否则获取不到宽高
+			oBox.appendChild(oS);
+			oS.style.left = c*oBox.offsetWidth/C+'px';
+			oS.style.top = r*oBox.offsetHeight/R+'px';
+			oS.style.position='absolute';
+			oS.style.backgroundPosition=-c*oBox.offsetWidth/C+'px -'+r*oBox.offsetHeight/R+'px';
+			oS.c = c;
+			oS.r = r;
+		}
+	}
+	var timer = null;
+	var iNow = 0;		//代表了是第几个图片
+	var bOk = false;
+	oBtn.onclick=function(){
+		if(bOk)return;
+		bOk=true;
+		var aS = oBox.children;
+		//切换到下一张图片
+		iNow++;
+		for(var i=0;i<aS.length;i++){
+			//特殊的循环
+			(function(index){
+				setTimeout(function(){
+					//改变span的背景图
+					aS[index].style.backgroundImage='url(img/'+iNow%3+'.jpg)';
+					//在显示之前把当前的span变成透明
+					aS[index].style.opacity=0;
+					//当完成时，改变oBox的背景图片
+					(function(j){
+						startMove(aS[j],{opacity:1},{end:function(){
+							if(j==aS.length-1){
+								oBox.style.background='url(img/'+iNow%3+'.jpg) no-repeat';
+								bOk=false;
+							}
+						}});
+					})(index);
+				},Math.random()*300);
+			})(i);
+		}
+	};
+};
+</script>
+</head>
+
+<body>
+<input type="button" value="走一个走一个走一个走一个" />
+<div id="box">
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

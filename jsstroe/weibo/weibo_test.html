@@ -1,0 +1,246 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>微博评论</title>
+<link href="style/weibo.css" rel="stylesheet" type="text/css" />
+<script src="ajax.js"></script>
+<script src="cookie.js"></script>
+<script>
+function toDou(iNum){
+	return iNum<10?'0'+iNum:''+iNum;
+}
+window.onload=function(){
+	var oT = document.getElementById('t1');
+	var oBtn = document.getElementById('btn1');
+	var oReplyBox = document.getElementById('reply_box');
+	var oPageBox = document.getElementById('page_box');
+	var aA = oPageBox.children;
+	var iNow = 1;
+	var URL = 'weibo.php';
+	oBtn.onclick=function(){
+		if(!oT.value)return;
+		ajax({
+			url:URL,
+			data:{
+				act:'add',
+				content:oT.value
+			},
+			success:function(str){
+				var json = eval('('+str+')');
+				//：{error:0, id: 新添加内容的ID, time: 添加时间}
+				//以下代码跟交互没有任何关系。
+				if(!json.error){
+					var oDiv = createReply(json.id,oT.value,json.time,0,0);
+					if(oReplyBox.children.length){
+						oReplyBox.insertBefore(oDiv,oReplyBox.children[0]);
+					}else{
+						oReplyBox.appendChild(oDiv);
+					}
+					if(oReplyBox.children.length==7){
+						oReplyBox.removeChild(oReplyBox.children[oReplyBox.children.length-1]);
+					}
+					oT.value='';
+					getPageCount();
+				}else{
+					alert('哥们，不好意思。你留言失败。别问为啥，人品不好。');
+				}
+				
+			},
+			error:function(){
+				alert('失败');
+			}
+		});
+	};
+	function createReply(id,con,time,acc,ref){
+		var oDate = new Date();
+		oDate.setTime(time*1000);
+		
+		var oDiv = document.createElement('div');
+		oDiv.className='reply';
+		oDiv.innerHTML='<p class="replyContent">'+con+'</p>'+
+				'<p class="operation">'+
+				'<span class="replyTime">'+oDate.getFullYear()+'-'+toDou(oDate.getMonth()+1)+'-'+toDou(oDate.getDate())+' '+toDou(oDate.getHours())+':'+toDou(oDate.getMinutes())+':'+toDou(oDate.getSeconds())+'</span>'+
+				'<span class="handle">'+
+				'<a href="javascript:;" class="top">'+acc+'</a>'+
+				'<a href="javascript:;" class="down_icon">'+ref+'</a>'+
+				 '<a href="javascript:;" class="cut">删除</a>'+
+				'</span>'+
+				'</p>';
+		var oAcc = oDiv.getElementsByTagName('a')[0];
+		oAcc.onclick=function(){
+			if(getCookie('acc'+id)){
+				alert('哥们，一天只能顶一次。');
+				return;
+			}
+			ajax({
+				url:URL,
+				data:{
+					act:'acc',
+					'id':id
+				},
+				success:function(str){
+					var json = eval('('+str+')');
+					if(!json.error){
+						
+						addCookie('acc'+id,1,1);
+						oAcc.innerHTML = parseInt(oAcc.innerHTML)+1;
+					}else{
+						alert('哥们，不好意思，失败了。');
+					}
+				},
+				error:function(){
+					alert('失败');
+				}
+			});
+		};
+		var oRef = oDiv.getElementsByTagName('a')[1];
+		oRef.onclick=function(){
+			if(getCookie('ref'+id)){
+				alert('哥们，一天只能踩一次。');
+				return;
+			}
+			ajax({
+				url:URL,
+				data:{
+					act:'ref',
+					'id':id
+				},
+				success:function(str){
+					var json = eval('('+str+')');
+					if(!json.error){
+						
+						addCookie('ref'+id,1,1);
+						oRef.innerHTML = parseInt(oRef.innerHTML)+1;
+					}else{
+						alert('哥们，不好意思，失败了。');
+					}
+				},
+				error:function(){
+					alert('失败');
+				}
+			});
+		};
+		var oDel = oDiv.getElementsByTagName('a')[2];
+		oDel.onclick=function(){
+			var rel = confirm('你确定要删除这条数据吗？');
+			if(rel){
+				ajax({
+					url:URL,
+					data:{
+						act:'del',
+						'id':id
+					},success:function(str){
+						var json = eval('('+str+')');
+						//以下代码跟交互没有任何关系
+						if(!json.error){
+							getMsg(iNow);
+							getPageCount();
+						}else{
+							alert('删除失败。');
+						}
+					},
+					error:function(){
+						alert('失败了');
+					}
+				});
+			}
+		};
+		return oDiv;
+	}
+	function getPageCount(){
+		ajax({
+			url:URL,
+			data:{
+				act:'get_page_count'
+			},
+			success:function(str){
+				var json = eval('('+str+')');
+				//以下代码跟交互没有任何关系
+				if(json.count){
+					oPageBox.innerHTML='';
+					for(var i=0;i<json.count;i++){
+						var oA = document.createElement('a');
+						oA.href='javascript:;';
+						oA.innerHTML=i+1;
+						oA.onclick=function(){
+							for(var i=0;i<aA.length;i++){
+								aA[i].className='';
+							}
+							this.className='active';
+							iNow = this.innerHTML;
+							getMsg(this.innerHTML);
+						};
+						oPageBox.appendChild(oA);
+					}
+					aA[iNow-1].className='active';
+				}
+			},
+			error:function(){
+				alert('失败了');
+			}
+		});
+	}
+	function getMsg(pageNum){
+		ajax({
+			url:URL,
+			data:{
+				act:'get',
+				page:pageNum
+			},
+			success:function(str){
+				var arr = eval('('+str+')');
+				//以下代码跟交互没有关系
+				if(arr.length){
+					oReplyBox.innerHTML='';
+					for(var i=0;i<arr.length;i++){
+						var oDiv = createReply(arr[i].id,arr[i].content,arr[i].time,arr[i].acc,arr[i].ref);
+						oReplyBox.appendChild(oDiv);
+					}
+				}
+			},
+			error:function(){
+				alert('失败了');
+			}
+		});
+	}
+	getMsg(1);
+	getPageCount();
+};
+</script>
+</head>
+
+<body>
+<div class="znsArea">
+<!--留言-->
+     <div class="takeComment">
+        <textarea name="textarea" class="takeTextField" id="t1"></textarea>
+        <div class="takeSbmComment">
+            <input type="button" class="inputs" value="" id="btn1" />
+            <span>(可按 Enter 回复)</span>
+        </div>
+    </div>
+<!--已留-->
+    <div class="commentOn">
+        <div class="messList" id="reply_box">
+        	<!--<div class="reply">
+                <p class="replyContent">卫士，新款卫士将推出总共14种车身式样。其中， XS旅行款车型售价为32295英镑(约33.6万元)。</p>
+                <p class="operation">
+                    <span class="replyTime">2011-09-08 16:37:60</span>
+                    <span class="handle">
+                    	<a href="javascript:;" class="top">0</a>
+                        <a href="javascript:;" class="down_icon">0</a>
+                        <a href="javascript:;" class="cut">删除</a>
+                    </span>
+                </p>
+            </div>-->
+        </div>
+        <div class="page" id="page_box">
+        	<!--<a href="javascript:;" class="active">1</a>
+        	<a href="javascript:;">2</a>
+        	<a href="javascript:;">3</a>-->
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>游戏动作</title>
+<style>
+#box{width:300px;height:300px;border:1px solid black;margin:50px auto;position:relative;}
+#box img{position:absolute;top:50%;left:50%;margin-left:-24px;margin-top:-30px;}
+</style>
+<script>
+window.onload=function(){
+	var obox=document.getElementById('box');
+	var oImg=obox.getElementsByTagName('img')[0];
+	var timer=null;
+	var i=0;
+	clearInterval(timer);
+	timer=setInterval(function(){
+		i++;
+		oImg.src='img/0'+(i%3+1)+'.png';
+	},100);
+	obox.onclick=function(){
+		clearInterval(timer);
+		timer=setInterval(function(){
+			i++
+			oImg.src='img/fight0'+(i%4+1)+'.png';	
+		},100);
+		
+		setTimeout(function(){
+			clearInterval(timer)	
+			timer=setInterval(function(){
+			i++;
+			oImg.src='img/0'+(i%3+1)+'.png';
+			},150);
+		},1500);
+	}
+}
+</script>
+</head>
+
+<body>
+<div id="box">
+	<img src="img/01.png" />
+</div>
+</body>
+</html>

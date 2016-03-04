@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>网络进度条</title>
+<style>
+*{margin:0; padding:0;}
+body{background:#273041;}
+#box{width:500px; height:30px; background:gray; margin:100px auto;color:#fff;}
+#bar{width:0; height:30px; background:gold;}
+</style>
+<script>
+window.onload=function(){
+	var oBox = document.getElementById('box');
+	var oBar = document.getElementById('bar');
+	var oS = oBox.children[1];
+	var count = 0;
+	for(var i=0;i<77;i++){
+		var oImg = new Image();
+		
+		
+		
+		oImg.src='http://www.zhinengshe.com/works/3525/img/'+i+'.jpg';
+		oImg.onload=function(){
+			count++;
+			var scale = count/77;
+			oBar.style.width=scale*500+'px';
+			oS.innerHTML=(scale*100).toFixed(2)+'%';
+		};
+	}
+};
+</script>
+</head>
+
+<body>
+<div id="box">
+	<div id="bar"></div>
+    <span>0%</span>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

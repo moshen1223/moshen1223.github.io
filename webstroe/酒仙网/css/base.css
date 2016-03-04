@@ -1,0 +1,34 @@
+@charset "utf-8";
+
+*{ padding:0; margin:0; line-height:100%;}
+body,h1,h2,h3,h4,h5,h6{ font-size:12px; font-family:Verdana, Geneva, sans-serif '宋体';}
+ul,ol{ list-style:none;}
+a{ color:#000; text-decoration:none;}
+a img{ border:0;}
+i,em{ font-style:normal;}
+b,strong{ font-weight:normal;}
+
+.fl{ float:left;}
+.fr{ float:right;}
+.por{ position:relative;}
+.mt30{ margin-top:30px;}
+
+.all_width{ width:1200px; margin:0 auto;}
+.clearfix:after{ display:block; content:''; clear:both;}
+.clearfix{ zoom:1;}
+
+.bor_bt{
+    border-bottom:0;
+}
+.bor_rt{
+    border-right:0;
+}
+.bor_lt{
+    border-left:0;
+}
+.bor_top{
+    border-top:0;
+}
+img{
+    vertical-align:top;
+}

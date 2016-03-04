@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无缝滚动</title>
+<style>
+body{background:#273041;}
+*{margin:0; padding:0; list-style:none;}
+#box{width:800px;height:450px; position:relative; top:0; left:0; margin:100px auto; overflow:hidden;}
+#box ul{position:absolute; top:0; left:0;}
+#box ul li{float:left; width:800px; height:450px;}
+#box ul li img{width:100%;}
+#box ol{width:250px;position:absolute; left:50%; bottom:20px; margin-left:-125px;}
+#box ol li{width:30px; height:30px; background:rgba(200,200,200,1); border-radius:50%; float:left; text-indent:-99999px; margin:10px;}
+#box ol li.on{background:rgba(51,255,0,0.6);}
+#box a{position:absolute; top:50%; margin-top:-30px; width:80px; height:60px; background:rgba(0,0,0,0.5); font-size:20px; text-align:center; line-height:60px; color:#fff; text-decoration:none; display:none;}
+#box .prev{left:0;}
+#box .next{right:0;}
+#box a:hover{background:rgba(0,255,0,0.6);}
+</style>
+<script>
+window.onload=function(){
+	var oBox = document.getElementById('box');
+	var oUl = oBox.children[0];
+	var aLi = oUl.children;
+	var oOl = oBox.children[1];
+	var aBtn = oOl.children;
+	var oPrev = oBox.getElementsByTagName('a')[0];
+	var oNext = oBox.getElementsByTagName('a')[1];
+	//为了做无缝滚动，所以必须复制一份内容
+	oUl.innerHTML+=oUl.innerHTML;
+	//设置UL的宽度
+	oUl.style.width = aLi.length*aLi[0].offsetWidth+'px';
+	//得到ul一般的宽度
+	var W = oUl.offsetWidth/2;
+	//当前是第几个
+	var iNow = 0;
+	oBox.onmouseover=function(){
+		oPrev.style.display='block';
+		oNext.style.display='block';
+	};
+	oBox.onmouseout=function(){
+		oPrev.style.display='none';
+		oNext.style.display='none';
+	};
+	for(var i=0;i<aBtn.length;i++){
+		(function(index){
+			aBtn[i].onmouseover=function(){
+				//如果当前显示的是最后一张，并且即将移入的是第一张，就切换下一张
+				//如果iNow%aBtn.length等于4，就是最后一张，如果iNow%aBtn.length==-1也是最后一张.如果index%aBtn.length==0，那就是移入第一张
+				if((iNow%aBtn.length==4||iNow%aBtn.length==-1)&&index%aBtn.length==0){
+					iNow++;
+				}
+				//如果当前显示的是第一张，并且即将移入的是最后一张，就切换上一张
+				//如果iNow%aBtn.length等于0那就是第一张，如果index%aBtn.length等于4那就是移入最后一张
+				if(iNow%aBtn.length==0&&index%aBtn.length==4){
+					iNow--;
+				}
+				//当前下标是38，移入下标是2的按钮，想到37
+				iNow = Math.floor(iNow/aBtn.length)*aBtn.length+index;
+				tab();
+			};
+		})(i);
+	}
+	function tab(){
+		for(var i=0;i<aBtn.length;i++){
+			aBtn[i].className='';
+		}
+		//为了让按钮正常显示的计算
+		if(iNow>0){
+			aBtn[iNow%aBtn.length].className='on';
+		}else{
+			aBtn[(iNow%aBtn.length+aBtn.length)%aBtn.length].className='on';
+		}
+		move(oUl,-iNow*aLi[0].offsetWidth);
+		//oUl.style.left = -iNow*aLi[0].offsetWidth+'px';
+	}
+	oPrev.onclick=function(){
+		iNow--;
+		tab();
+	};
+	oNext.onclick=function(){
+		iNow++;
+		tab();
+	};
+	var left = 0;
+	function move(obj,iTarget){
+		var start = left;
+		var dis = iTarget-start;
+		var count = Math.floor(700/30);
+		var n = 0;
+		clearInterval(obj.timer);
+		obj.timer = setInterval(function(){
+			n++;
+			var a = 1-n/count;
+			left = start+dis*(1-Math.pow(a,3));
+			if(left<0){
+				obj.style.left = left%W+'px';
+			}else{
+				obj.style.left = (left%W-W)%W+'px';
+			}
+			if(n==count){
+				clearInterval(obj.timer);
+			}
+		},30);
+	}
+};
+</script>
+</head>
+
+<body>
+<div id="box">
+	<ul>
+    	<li><img src="img/0.jpg" /></li>
+    	<li><img src="img/1.jpg" /></li>
+    	<li><img src="img/2.jpg" /></li>
+    	<li><img src="img/3.jpg" /></li>
+    	<li><img src="img/4.jpg" /></li>
+    </ul>
+    <ol>
+    	<li class="on">0</li>
+    	<li>1</li>
+    	<li>2</li>
+    	<li>3</li>
+    	<li>4</li>
+    </ol>
+	<a href="javascript:;" class="prev">prev</a>
+    <a href="javascript:;" class="next">next</a>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

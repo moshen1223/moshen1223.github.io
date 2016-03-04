@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>影子</title>
+<style>
+*{margin:0; padding:0;}
+body{
+	background:#273041;color:#fff
+}
+span{width:300px; height:30px; font-size:20px; line-height:30px;position:absolute; top:50%; left:50%; margin-top:-15px; margin-left:-150px; text-shadow:0 0 0 #fff;font-size:30px;font-weight:bold;}
+</style>
+<script>
+window.onload=function(){
+	var oS1 = document.getElementById('s1');
+	document.onmousemove=function(ev){
+		var x1 = ev.pageX;
+		var y1 = ev.pageY;
+		var x2 = oS1.offsetLeft+oS1.offsetWidth/2;
+		var y2 = oS1.offsetTop+oS1.offsetHeight/2;
+		var disX = (x2-x1)/3;
+		var disY = (y2-y1)/3;
+		var dis = Math.sqrt(disX*disX+disY*disY)/20;
+		oS1.style.textShadow = disX+'px '+disY+'px '+dis+'px #fff';
+	};
+};
+</script>
+</head>
+
+<body>
+<span id="s1">sizhiqian_personal_web</span>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

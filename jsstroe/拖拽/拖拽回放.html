@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>根据拖拽路径放回原处</title>
+<style>
+*{margin:0; padding:0;}
+#box{width:100px; height:100px; background:red; position:absolute; top:0; right:0;}
+body{
+	background:#273041;
+}
+</style>
+<script>
+window.onload=function(){
+	var oBtn = document.body.children[0];
+	var oBox = document.body.children[1];
+	var aPos = [];
+	oBox.onmousedown=function(ev){
+		var oEvent = ev||event;
+		var disX = oEvent.clientX-oBox.offsetLeft;
+		var disY = oEvent.clientY-oBox.offsetTop;
+		aPos.push({left:oBox.offsetLeft,top:oBox.offsetTop});
+		document.onmousemove=function(ev){
+			var oEvent = ev||event;
+			oBox.style.left = oEvent.clientX-disX+'px';
+			oBox.style.top = oEvent.clientY-disY+'px';
+			aPos.push({left:oBox.offsetLeft,top:oBox.offsetTop});
+		};
+		document.onmouseup=function(){
+			document.onmousemove=null;
+			document.onmouseup=null;
+			oBox.releaseCapture&&oBox.releaseCapture();
+		};
+		oBox.setCapture&&oBox.setCapture();
+		return false;
+	};
+	oBtn.onclick=function(){
+		var timer = setInterval(function(){
+			if(aPos.length){
+				var oPos = aPos.pop();
+				oBox.style.left =oPos.left+'px';
+				oBox.style.top = oPos.top+'px';
+			}else{
+				clearInterval(timer);
+			}
+		},30);
+	};
+};
+</script>
+</head>
+
+<body>
+<input type="button" value="回放" />
+<div id="box"></div>
+</body>
+</html>
+
+
+
+
+
+
+

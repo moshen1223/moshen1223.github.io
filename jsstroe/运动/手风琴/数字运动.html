@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="author" content="智能社 - zhinengshe.com">
+<meta name="copyright" content="智能社 - zhinengshe.com">
+<title>智能社 - www.zhinengshe.com</title>
+<style>
+*{margin:0; padding:0;}
+</style>
+<script>
+window.onload=function(){
+	var oTxt = document.getElementsByTagName('input')[0];
+	document.onclick=function(){
+		var start = oTxt.value-0;
+		var dis = 100-start;
+		var count = Math.floor(10000/30);
+		clearInterval(oTxt.timer);
+		var n = 0;
+		oTxt.timer = setInterval(function(){
+			n++;
+			var a = 1-n/count;
+			oTxt.value = start+dis*(1-Math.pow(a,3));
+			if(n==count){
+				clearInterval(oTxt.timer);
+			}
+		},30);
+	};
+};
+</script>
+</head>
+
+<body>
+<input type="text" value="0" />
+</body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>打印机效果</title>
+<style>
+*{margin:0; padding:0;}
+body{background:#000;}
+span{float:left; font-size:50px; font-weight:bold; color:#fff; opacity:0;}
+</style>
+<script src="move.js"></script>
+<script>
+window.onload=function(){
+	var str = '出席中美互联网论坛中国倡导和平安全开放合作的网络空间一个安全稳定繁荣的网络空间，对中国乃至世界和平发展都具有重大的意义，所以如何治理互联网、用好互联网都是各国的关注，各国也在研究这个问题，没有哪个国家能够置身事外。中国倡导的和平安全开放合作的网络空间，主张各国制定符合自身国情的网络公共政策，我们重视发挥互联网对经济建设的推动作用，实施互联网+政策，鼓励更多产业利用互联网实现更好发展。中美合作，让网络造福两国人民中美都是网络大国，中国是世界上最大网络市场，美国有最先进的网络技术，双方都面临着严峻的网络安全挑战，拥有重要共同利益和合作空间，双方理应在相互尊重相互信任的基础上，就网络问题开展建设性对话，打造中美合作亮点，让网络空间更好地造福两国人民和世界人民。';
+	for(var i=0;i<str.length;i++){
+		var oS = document.createElement('span');
+		oS.innerHTML=str.charAt(i);
+		document.body.appendChild(oS);
+	}
+	var aS = document.body.children;
+	var i=0;
+	var timer= null;
+	timer = setInterval(function(){
+		//aS[i].style.opacity=1;
+		startMove(aS[i],{opacity:1});
+		i++;
+		if(i==str.length){
+			clearInterval(timer);
+		}
+	},100);
+};
+</script>
+</head>
+
+<body>
+</body>
+</html>
+
+
+
+
+
+
+
+

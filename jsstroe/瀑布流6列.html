@@ -1,0 +1,74 @@
+f<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>智能社</title>
+<style>
+*{margin:0; padding:0; list-style:none;}
+#box{overflow:hidden; width:732px; margin:0 auto;}
+ul{float:left; width:100px; border:1px solid red; margin:10px;}
+ul li{width:100%; background:#ccc; margin:10px 0;}
+</style>
+<script>
+function rnd(n,m){
+	return parseInt(n+Math.random()*(m-n));
+}
+function createLi(){
+	var oLi = document.createElement('li');
+	oLi.style.height=rnd(150,300)+'px';
+	oLi.style.background='rgb('+rnd(0,256)+','+rnd(0,256)+','+rnd(0,256)+')';
+	return oLi;
+}
+window.onload=function(){
+	var oBox = document.getElementById('box');
+	var aUl = oBox.children;
+	function create50(){
+		for(var i=0;i<50;i++){
+			var oLi = createLi();
+			var arr = [];
+			for(var j=0;j<aUl.length;j++){
+				arr.push(aUl[j]);
+			}
+			arr.sort(function(u1,u2){
+				return u1.offsetHeight-u2.offsetHeight;
+			});
+			arr[0].appendChild(oLi);
+		}
+
+	}
+	create50();
+	window.onscroll=window.onresize=function(){
+		var scrollT = document.documentElement.scrollTop||document.body.scrollTop;
+		var scrollB = scrollT+document.documentElement.clientHeight;
+		if(document.body.scrollHeight-100<=scrollB){
+			create50();
+		}
+	};
+};
+</script>
+</head>
+
+<body>
+<div id="box">
+	<ul></ul>
+	<ul></ul>
+	<ul></ul>
+	<ul></ul>
+	<ul></ul>
+	<ul></ul>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

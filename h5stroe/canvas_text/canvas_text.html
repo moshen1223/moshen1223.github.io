@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>canvas</title>
+<style>
+*{margin:0; padding:0;}
+body{background:#000;}
+#c1{background:#fff;}
+</style>
+<script>
+function d2a(n){
+	return n*Math.PI/180;
+}
+window.onload=function(){
+	var oC = document.getElementById('c1');
+	var gd = oC.getContext('2d');
+	
+	var cx = 300;
+	var cy = 200;
+	var r = 100;
+	var linear = gd.createLinearGradient(200,200,400,400);
+	linear.addColorStop(0,'red');
+	linear.addColorStop(1,'blue');
+	gd.lineWidth='20';
+	var i =0;
+	var timer = null;
+	timer = setInterval(function(){
+		gd.clearRect(0,0,oC.width,oC.height);
+		gd.beginPath();
+		gd.strokeStyle=linear;
+		gd.arc(cx,cy,r,d2a(0),d2a(i+1),false);
+		gd.stroke();
+		
+		
+		i++;
+		var str = parseInt(i*100/360)+'%';
+		var w = gd.measureText(str).width;
+		gd.font='60px 黑体';
+		gd.fillStyle=linear;
+		gd.fillText(str,cx-w/2,cy+20);
+		
+		if(i>=360){
+			clearInterval(timer);
+		}
+	},16);
+};
+</script>
+</head>
+
+<body>
+<canvas id="c1" width="800" height="600"></canvas>
+</body>
+</html>

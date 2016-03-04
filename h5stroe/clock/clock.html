@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>H5时钟</title>
+<style>
+*{margin:0; padding:0;}
+.box{width:300px; height:300px; border:10px solid #000; border-radius:50%; position:absolute; top:50%; left:50%; margin-top:-150px; margin-left:-150px;}
+.box div.hour{width:16px; height:100px; background:#000; position:absolute; left:50%; margin-left:-8px;top:50px; -webkit-transform-origin:center bottom;}
+.box div.min{width:8px; height:120px; background:#000; position:absolute; left:50%; margin-left:-4px; top:30px; -webkit-transform-origin:center bottom;}
+.box div.sec{width:4px; height:140px; background:#000; position:absolute; left:50%; margin-left:-2px; top:10px; -webkit-transform-origin:center bottom;}
+.box .scaler{width:2px; height:8px; background:#000;position:absolute; left:50%; margin-left:-1px; top:0; -webkit-transform-origin:center 150px;}
+.box .big_scaler{width:6px; height:16px; background:#000; position:absolute; left:50%; margin-left:-3px; top:0px; -webkit-transform-origin:center 150px;}
+.box .big_scaler em{position:absolute; top:18px; font-style:normal;  left:50%; margin-left:-15px; text-align:center;}
+.box .cir{width:30px; height:30px; background:#000; border-radius:50%; position:absolute; left:50%; top:50%; margin-left:-15px; margin-top:-15px;}
+</style>
+<script>
+window.onload=function(){
+	var oBox = document.querySelector('.box');
+	var oHour = document.querySelector('.box .hour');
+	var oMin = document.querySelector('.box .min');
+	var oSec = document.querySelector('.box .sec');
+	for(var i=0;i<60;i++){
+		var oS = document.createElement('span');
+		if(i%5==0){
+			oS.className='big_scaler';
+			if(i==0)
+				oS.innerHTML='<em>'+12+'</em>';
+			else
+				oS.innerHTML='<em>'+i/5+'<\/em>';
+			var oEm = oS.children[0];
+			oEm.style.WebkitTransform='rotate('+-i*6+'deg)';
+		}else{
+			oS.className='scaler';
+		}
+		
+		oS.style.WebkitTransform='rotate('+i*6+'deg)';
+		oBox.appendChild(oS);
+	}
+	function tick(){
+		var oDate = new Date();
+		oHour.style.WebkitTransform='rotate('+(oDate.getHours()+oDate.getMinutes()/60)*30+'deg)';
+		oMin.style.WebkitTransform='rotate('+(oDate.getMinutes()+oDate.getSeconds()/60)*6+'deg)';
+		oSec.style.WebkitTransform='rotate('+oDate.getSeconds()*6+'deg)';
+	}
+	tick();
+	setInterval(tick,1000);
+};
+</script>
+</head>
+
+<body>
+<div class="box">
+	<div class="hour"></div>
+    <div class="min"></div>
+    <div class="sec"></div>
+   	<div class="cir"></div>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
